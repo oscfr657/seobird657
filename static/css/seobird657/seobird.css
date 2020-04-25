@@ -1,0 +1,34 @@
+
+
+.seo_recipe {
+    margin: 1em auto;
+    width: 900px;
+    max-width: calc(100% - 2em);
+}
+
+.seo_recipe img {
+    max-width: 100%;
+}
+.seo_recipe .recipe {
+    max-width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: calc(30% - 1em) 70%;
+    grid-column-gap: 1.5rem;
+}
+
+
+@media (max-width: 900px) {
+    .seo_recipe .recipe {
+        grid-template-columns: calc(30% - 1em) 70%;
+    }
+}
+
+@media (max-width: 600px) {
+    .seo_recipe .recipe {
+        grid-template-columns: 1fr;
+    }
+    .seo_recipe .recipe .ingredients > ul {
+        margin: auto;
+    }
+}
