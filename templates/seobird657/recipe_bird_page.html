@@ -6,35 +6,89 @@
 
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/seobird657/seobird.css' %}" >
+
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Recipe",
+        "author": "{{ page.specific.author }}",
+
+        {% if page.go_live_at %}
+        "datePublished": "{{ page.go_live_at|date:"Y-m-d" }}",
+        {% else %}
+        "datePublished": "{{ page.first_published_at|date:"Y-m-d" }}",
+        {% endif %}
+
+        {% if page.specific.tags.count > 1 %}
+        "keywords": "{% for tag in page.specific.tags.all %}{% if forloop.last %}{{ tag }}{% else %}{{ tag }}, {% endif %}{% endfor %}"
+        {% elif page.specific.tags.exists %}
+        "keywords": "{% for tag in page.specific.tags.all %}{{ tag }}{% endfor %}"
+        {% endif %}
+
+        "description": "{{ page.specific.intro|default:''|striptags }}",
+
+        {% image page.specific.coverImage original as tmp_photo %}
+        "image": "{{ tmp_photo.url }}",
+
+        {% for block in page.specific.recipe %}
+            {% if block.block_type == 'ingredients' %}
+            "recipeIngredient": [
+                {% for ingredient in block.value %}
+                    {% if ingredient.amount %}
+                    "{{ ingredient.amount }} {{ ingredient.ingredient }}"
+                    {% else %}
+                    "{{ ingredient.ingredient }}"
+                    {% endif %}
+                {% endfor %}
+            ],
+            {% endif %}
+
+            {% if block.block_type == 'instructions' %}
+            "recipeInstructions": [
+                {% for instruction in block.value %}
+                    { "@type": "HowToStep",
+                    "name": "{{ instruction.name }}",
+                    "text": "{{ instruction.text }}",
+                    "url": "{{ instruction.url }}",
+                    {% image instruction.image original as inst_img %}
+                    "image": "{{ inst_img.url }}"
+                    {% if not forloop.last %}
+                    },
+                    {% else %}
+                    }
+                    {% endif %}
+                {% endfor %}
+                ]
+            {% endif %}
+        {% endfor %}
+        
+        "name": "{{ page.title }}",
+    }
+    </script>
+
 {% endblock extra_head %}
 
 
 {% block content %}
-<div class="seo_recipe" itemscope itemtype="http://schema.org/Recipe">
+<div class="seo_recipe" >
 
     {% if page.specific.coverImage and page.specific.show_coverImage %}
     {% image page.specific.coverImage original as tmp_photo %}
-    <img itemprop="image" src="{{ tmp_photo.url }}" alt="{{ tmp_photo.alt }}"  />
+    <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.alt }}"  />
     {% endif %}
 
-    <h2 itemprop="name">{{ page.title }}</h2>
-
-    {% if page.go_live_at %}
-    <meta itemprop="datePublished" content="{{ page.go_live_at|date:"Y-m-d" }} ">
-    {% elif page.first_published_at %}
-    <meta itemprop="datePublished" content="{{ page.first_published_at|date:"Y-m-d" }} ">
-    {% endif %}
+    <h2 >{{ page.title }}</h2>
 
     {% if page.go_live_at and page.specific.show_date %}
-    <span class="datePublished">{{ page.go_live_at|date:"d M Y" }}</span>
+    <span >{{ page.go_live_at|date:"d M Y" }}</span>
     {% elif page.specific.show_date %}
-    <span class="datePublished">{{ page.first_published_at|date:"d M Y" }}</span>
+    <span >{{ page.first_published_at|date:"d M Y" }}</span>
     {% endif %}
     <span> / </span>
-    <span class="author" itemprop="author">{{ page.specific.author }}</span>
+    <span class="author">{{ page.specific.author }}</span>
     
     {% if page.specific.intro %}
-    <div class="description" itemprop="description">{{ page.specific.intro|richtext }}</div>
+    <div class="description" >{{ page.specific.intro|richtext }}</div>
     {% endif %}
     
     <div class="recipe">
@@ -45,9 +99,9 @@
             <ul>
             {% for ingredient in block.value %}
                 {% if ingredient.amount %}
-                <li itemprop="recipeIngredient">{{ ingredient.amount }} {{ ingredient.ingredient }}</li>
+                <li >{{ ingredient.amount }} {{ ingredient.ingredient }}</li>
                 {% else %}
-                <li itemprop="recipeIngredient">{{ ingredient.ingredient }}</li>
+                <li >{{ ingredient.ingredient }}</li>
                 {% endif %}
             {% endfor %}
             </ul>
@@ -57,12 +111,10 @@
         {% if block.block_type == 'instructions' %}
         <div class="instructions">
             <h3>Instructions:</h3>
-            <div itemprop="recipeInstructions">
+            <div >
                 {% for instruction in block.value %}
-                <div class="instruction" itemscope itemtype="http://schema.org/HowToStep">
-                    <meta itemprop="position" content="{{ forloop.counter }}"/>
-                    <div itemprop="name">{{ instruction.name }}</div>
-                    <div itemprop="text">{{ instruction.text }}</div>
+                <div class="instruction" >
+                    <div >{{ instruction.text }}</div>
                 </div>
                 {% endfor %}
             </div>
