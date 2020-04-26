@@ -39,6 +39,9 @@
                     {% else %}
                     "{{ ingredient.ingredient }}"
                     {% endif %}
+                    {% if not forloop.last %}
+                    ,
+                    {% endif %}
                 {% endfor %}
             ],
             {% endif %}
