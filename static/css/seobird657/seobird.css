@@ -16,6 +16,9 @@
     grid-template-columns: calc(30% - 1em) 70%;
     grid-column-gap: 1.5rem;
 }
+.seo_recipe .recipe .instructions .instruction {
+    margin: 0.5em auto;
+}
 
 
 @media (max-width: 900px) {
