@@ -20,9 +20,9 @@
         {% endif %}
 
         {% if page.specific.tags.count > 1 %}
-        "keywords": "{% for tag in page.specific.tags.all %}{% if forloop.last %}{{ tag }}{% else %}{{ tag }}, {% endif %}{% endfor %}"
+        "keywords": "{% for tag in page.specific.tags.all %}{% if forloop.last %}{{ tag }}{% else %}{{ tag }}, {% endif %}{% endfor %}",
         {% elif page.specific.tags.exists %}
-        "keywords": "{% for tag in page.specific.tags.all %}{{ tag }}{% endfor %}"
+        "keywords": "{% for tag in page.specific.tags.all %}{{ tag }}{% endfor %}",
         {% endif %}
 
         "description": "{{ page.specific.intro|default:''|striptags }}",
@@ -58,11 +58,11 @@
                     }
                     {% endif %}
                 {% endfor %}
-                ]
+                ],
             {% endif %}
         {% endfor %}
         
-        "name": "{{ page.title }}",
+        "name": "{{ page.title }}"
     }
     </script>
 
