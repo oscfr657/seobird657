@@ -4,9 +4,7 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 
-{% block extra_head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/seobird657/seobird.css' %}" >
-
+{% block ldjson %}
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -67,8 +65,12 @@
         
         "name": "{{ page.title }}"
     }
-    </script>
+</script>
+{% endblock ldjson %}
 
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/seobird657/seobird.css' %}" >
 {% endblock extra_head %}
 
 
@@ -124,6 +126,31 @@
         </div>
         {% endif %}
     {% endfor %}
+    </div>
+
+    <div class="related">
+        <h3 >Related Recipes</h3>
+        <div class="related_recipe">
+        {% for recipe in related %}
+            <a href="{% pageurl recipe %}" >
+                {% image recipe.specific.coverImage min-400x400 as tmp_img %}
+                <div class="related_recipe_cover">
+                    <img src="{{ tmp_img.url }}" alt="{{ tmp_img.alt }}" class="cover_image" loading="lazy" />
+                </div>
+                <div class="related_recipe_title">
+                    <h4>{{ recipe.title }}</h4>
+                    <span >
+                    {% if recipe.go_live_at and recipe.specific.show_date %}
+                        {{ recipe.go_live_at|date:"d M Y" }} 
+                    {% elif recipe.specific.show_date  %}
+                        {{ recipe.first_published_at|date:"d M Y" }}
+                    {% endif %}
+                    / {{ recipe.specific.author }}
+                    </span>
+                </div>
+            </a>
+        {% endfor %}
+        </div>
     </div>
 
 </div>

@@ -99,3 +99,9 @@ class RecipeBirdPage(Page, BirdMixin):
             return []
         else:
             return super(RecipeBirdPage, self).get_sitemap_urls(request=request)
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['related'] = RecipeBirdPage.objects.live(
+            ).public().not_in_menu().filter(tags__in=self.tags.all()).exclude(pk=self.pk).order_by('-go_live_at').distinct()
+        return context
