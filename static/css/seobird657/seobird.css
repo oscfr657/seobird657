@@ -1,7 +1,44 @@
 
+.seo_recipe > h2,
+.seo_recipe > img,
+.seo_recipe > .meta,
+.seo_recipe > .intro,
+.seo_article > h2,
+.seo_article > img,
+.seo_article > .meta,
+.seo_article > .intro {
+    display: block;
+    padding: 0em 0;
+    width: 900px;
+    max-width: 100%;
+    margin: auto;
+}
+.seo_recipe > h2,
+.seo_article > h2 {
+    padding: 0.5em 0 0 0;
+    text-align: center;
+    font-size: 2.5rem;
+}
+.seo_recipe > .meta,
+.seo_article > .meta {
+    padding: 1em 0;
+    text-align: center;
+}
+.seo_recipe > img,
+.seo_article > img {
+    width: 1200px;
+}
+.seo_recipe .related .related_recipe .related_recipe_title h4,
+.seo_article .related .related_article .related_article_title h4 {
+    margin: 0.5em 0 0 0;
+}
+.seo_recipe .related .related_recipe .related_recipe_title span,
+.seo_article .related .related_article .related_article_title span {
+    font-size: 1em;
+}
 
 .seo_recipe {
-    margin: 1em auto;
+    margin: auto;
     width: 900px;
     max-width: calc(100% - 2em);
 }
@@ -25,11 +62,44 @@
     grid-column-gap: 1em;
     margin: 1em 0 2em 0;
 }
-.seo_recipe .related .related_recipe .related_recipe_title h4 {
-    margin: 0.5em 0 0 0;
+
+
+.seo_article .block-paragraph {
+    width: 100%;
 }
-.seo_recipe .related .related_recipe .related_recipe_title span {
-    font-size: 1em;
+.seo_article .block-paragraph .rich-text > h2,
+.seo_article .block-paragraph .rich-text > h3,
+.seo_article .block-paragraph .rich-text > h4,
+.seo_article .block-paragraph .rich-text > h5,
+.seo_article .block-paragraph .rich-text > h6,
+.seo_article .block-paragraph .rich-text > p,
+.seo_article .block-paragraph .rich-text > img,
+.seo_article .block-paragraph .rich-text > iframe,
+.seo_article .block-paragraph .rich-text > ol,
+.seo_article .block-paragraph .rich-text > ul {
+    padding: 0em 0;
+    width: 900px;
+    max-width: 100%;
+    margin: auto;
+}
+.seo_article .block-paragraph .rich-text > ul {
+    padding: revert;
+}
+.seo_article .block-paragraph .rich-text > img {
+    display: block;
+    width: 1200px;
+}
+.seo_article .related {
+    margin: 1em auto;
+    width: 900px;
+    max-width: calc(100% - 2em);
+}
+.seo_article .related .related_article {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 1em;
+    grid-column-gap: 1em;
+    margin: 1em 0 2em 0;
 }
 
 @media (max-width: 600px) {

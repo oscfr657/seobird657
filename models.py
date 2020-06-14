@@ -16,10 +16,11 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from taggit.models import TaggedItemBase
 
+from .blocks import (CodeBirdBlock, HTMLBirdBlock, MediaFileBirdBlock)
 
 class BirdMixin(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
-    coverImage = models.ForeignKey(
+    cover_image = models.ForeignKey(
         'wagtailimages.Image',
         blank=True, null=True,
         on_delete=models.SET_NULL,
@@ -48,7 +49,7 @@ class BirdMixin(models.Model):
     ]
     content_panels = [
         FieldPanel('author'),
-        ImageChooserPanel('coverImage'),
+        ImageChooserPanel('cover_image'),
         FieldPanel('intro', classname="full"),
     ]
     settings_panels = [
@@ -103,5 +104,53 @@ class RecipeBirdPage(Page, BirdMixin):
     def get_context(self, request):
         context = super().get_context(request)
         context['related'] = RecipeBirdPage.objects.live(
+            ).public().not_in_menu().filter(tags__in=self.tags.all()).exclude(pk=self.pk).order_by('-go_live_at').distinct()
+        return context
+
+
+class ArticleBirdPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'ArticleBirdPage',
+        on_delete=models.CASCADE,
+        related_name='tagged_items')
+
+
+class ArticleBirdPage(Page, BirdMixin):
+    article = StreamField([
+        ('paragraph', blocks.RichTextBlock(
+            required=False, null=True,
+            features=[
+                'h2', 'h3', 'h4',
+                'bold', 'italic',
+                'superscript', 'subscript', 'strikethrough',
+                'ol', 'ul', 'hr',
+                'link', 'document-link',
+                'blockquote', 'embed', 'image'])),
+        ('media', MediaFileBirdBlock(required=False, null=True)),
+        ('code', CodeBirdBlock(required=False, null=True)),
+        ('html', HTMLBirdBlock(required=False, null=True)),
+    ], blank=True, null=True)
+    tags = ClusterTaggableManager(through=ArticleBirdPageTag, blank=True)
+
+    search_fields = Page.search_fields + BirdMixin.search_fields + [
+        index.SearchField('article'),
+    ]
+    content_panels = Page.content_panels + BirdMixin.content_panels  + [
+        StreamFieldPanel('article'),
+        ]
+    promote_panels = Page.promote_panels + [
+        FieldPanel('tags'),
+        ]
+    settings_panels = Page.settings_panels + BirdMixin.settings_panels
+
+    def get_sitemap_urls(self, request=None):
+        if self.exclude_from_sitemap:
+            return []
+        else:
+            return super(ArticleBirdPage, self).get_sitemap_urls(request=request)
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['related'] = ArticleBirdPage.objects.live(
             ).public().not_in_menu().filter(tags__in=self.tags.all()).exclude(pk=self.pk).order_by('-go_live_at').distinct()
         return context

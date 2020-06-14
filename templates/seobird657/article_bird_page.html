@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% wagtail_site as current_site %}
+
+{% block ldjson %}
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "author": "{{ page.specific.author }}",
+
+        "author": {
+            "@type": "Person",
+            "name": "{{ page.specific.author }}"
+        },
+
+        "publisher": {
+            "@type": "Organization",
+            {% if settings.birdapp657.BrandingSettings.logo %}
+            {% image settings.birdapp657.BrandingSettings.logo height-64 as site_logo %}
+            "name": "{{ current_site.site_name|default:'' }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ site_logo.url }}"
+            }
+            {% else %}
+            "name": "{{ current_site.site_name|default:'' }}"
+            {% endif %}
+        },
+    
+        "headline": "{{ page.title }}",
+
+        {% if page.go_live_at %}
+        "datePublished": "{{ page.go_live_at|date:"Y-m-d" }}",
+        {% else %}
+        "datePublished": "{{ page.first_published_at|date:"Y-m-d" }}",
+        {% endif %}
+
+        {% if page.specific.tags.count > 1 %}
+        "keywords": "{% for tag in page.specific.tags.all %}{% if forloop.last %}{{ tag }}{% else %}{{ tag }}, {% endif %}{% endfor %}",
+        {% elif page.specific.tags.exists %}
+        "keywords": "{% for tag in page.specific.tags.all %}{{ tag }}{% endfor %}",
+        {% endif %}
+
+        "description": "{{ page.specific.intro|default:''|striptags }}",
+
+        {% image page.specific.cover_image width-720 as tmp_photo %}
+        "image": "{{ tmp_photo.url }}"
+    }
+</script>
+{% endblock ldjson %}
+
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/seobird657/seobird.css' %}" >
+{% endblock extra_head %}
+
+
+{% block content %}
+<div class="seo_article" >
+
+    <h2 >{{ page.title }}</h2>
+
+    <div class="meta" >
+    {% if page.go_live_at and page.specific.show_date %}
+    <span >{{ page.go_live_at|date:"d M Y" }}</span>
+    {% elif page.specific.show_date %}
+    <span >{{ page.first_published_at|date:"d M Y" }}</span>
+    {% endif %}
+    <span> / </span>
+    <span class="author">{{ page.specific.author }}</span>
+    </div>
+
+    {% if page.specific.cover_image and page.specific.show_coverImage %}
+    {% image page.specific.cover_image width-720 as tmp_photo %}
+    <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.alt }}"  />
+    {% endif %}
+    
+    {% if page.specific.intro %}
+    <div class="intro" >{{ page.specific.intro|richtext }}</div>
+    {% endif %}
+    
+    {{ page.specific.article }}
+    
+    <div class="related">
+        <h3 >Related articles</h3>
+        <div class="related_article">
+        {% for article in related %}
+            <a href="{% pageurl article %}" >
+                {% image article.specific.cover_image min-400x400 as tmp_img %}
+                <div class="related_article_cover">
+                    <img src="{{ tmp_img.url }}" alt="{{ tmp_img.alt }}" class="cover_image" loading="lazy" />
+                </div>
+                <div class="related_article_title">
+                    <h4>{{ article.title }}</h4>
+                    <span >
+                    {% if article.go_live_at and article.specific.show_date %}
+                        {{ article.go_live_at|date:"d M Y" }} 
+                    {% elif article.specific.show_date  %}
+                        {{ article.first_published_at|date:"d M Y" }}
+                    {% endif %}
+                    / {{ article.specific.author }}
+                    </span>
+                </div>
+            </a>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

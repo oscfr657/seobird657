@@ -1,0 +1,21 @@
+
+<div class="media ">
+    {% if value %}
+        {% if value.block_media.type == 'video' %}
+        <!--#TODO: But what about webm and ogg ? sad_face -->
+            <div>
+                <video {% if value.muted %}muted{% endif %} {% if value.autoplay %}autoplay{% endif %} {% if value.loop %}loop{% endif %} {% if value.controls %}controls{% endif %} >
+                    <source src="{{ value.block_media.file.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% else %}
+            <div>
+                <audio {% if value.muted %}muted{% endif %} {% if value.autoplay %}autoplay{% endif %} {% if value.loop %}loop{% endif %} {% if value.controls %}controls{% endif %}>
+                    <source src="{{ value.block_media.file.url }}" >
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>

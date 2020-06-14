@@ -25,7 +25,7 @@
 
         "description": "{{ page.specific.intro|default:''|striptags }}",
 
-        {% image page.specific.coverImage original as tmp_photo %}
+        {% image page.specific.cover_image width-720 as tmp_photo %}
         "image": "{{ tmp_photo.url }}",
 
         {% for block in page.specific.recipe %}
@@ -77,13 +77,9 @@
 {% block content %}
 <div class="seo_recipe" >
 
-    {% if page.specific.coverImage and page.specific.show_coverImage %}
-    {% image page.specific.coverImage original as tmp_photo %}
-    <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.alt }}"  />
-    {% endif %}
-
     <h2 >{{ page.title }}</h2>
 
+    <div class="meta" >
     {% if page.go_live_at and page.specific.show_date %}
     <span >{{ page.go_live_at|date:"d M Y" }}</span>
     {% elif page.specific.show_date %}
@@ -91,9 +87,15 @@
     {% endif %}
     <span> / </span>
     <span class="author">{{ page.specific.author }}</span>
+    </div>
     
+    {% if page.specific.cover_image and page.specific.show_coverImage %}
+    {% image page.specific.cover_image width-720 as tmp_photo %}
+    <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.alt }}"  />
+    {% endif %}
+
     {% if page.specific.intro %}
-    <div class="description" >{{ page.specific.intro|richtext }}</div>
+    <div class="intro" >{{ page.specific.intro|richtext }}</div>
     {% endif %}
     
     <div class="recipe">
@@ -133,7 +135,7 @@
         <div class="related_recipe">
         {% for recipe in related %}
             <a href="{% pageurl recipe %}" >
-                {% image recipe.specific.coverImage min-400x400 as tmp_img %}
+                {% image recipe.specific.cover_image min-400x400 as tmp_img %}
                 <div class="related_recipe_cover">
                     <img src="{{ tmp_img.url }}" alt="{{ tmp_img.alt }}" class="cover_image" loading="lazy" />
                 </div>
