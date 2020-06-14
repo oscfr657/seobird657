@@ -11,24 +11,15 @@
     {
         "@context": "http://schema.org",
         "@type": "NewsArticle",
-        
+
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ current_site.site_name|default:'' }}"
+         },
+
         "author": {
             "@type": "Person",
             "name": "{{ page.specific.author }}"
-        },
-
-        "publisher": {
-            "@type": "Organization",
-            {% if settings.birdapp657.BrandingSettings.logo %}
-            {% image settings.birdapp657.BrandingSettings.logo height-64 as site_logo %}
-            "name": "{{ current_site.site_name|default:'' }}",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "{{ site_logo.url }}"
-            }
-            {% else %}
-            "name": "{{ current_site.site_name|default:'' }}"
-            {% endif %}
         },
     
         "headline": "{{ page.title }}",
