@@ -28,6 +28,14 @@
 .seo_article > img {
     width: 1200px;
 }
+.seo_recipe .related .related_recipe,
+.seo_article .related .related_article {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 1em;
+    grid-column-gap: 1em;
+    margin: 1em 0 2em 0;
+}
 .seo_recipe .related .related_recipe .related_recipe_title h4,
 .seo_article .related .related_article .related_article_title h4 {
     margin: 0.5em 0 0 0;
@@ -54,13 +62,6 @@
 }
 .seo_recipe .recipe .instructions .instruction {
     margin: 0.5em auto;
-}
-.seo_recipe .related .related_recipe {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-row-gap: 1em;
-    grid-column-gap: 1em;
-    margin: 1em 0 2em 0;
 }
 
 
@@ -94,12 +95,8 @@
     width: 900px;
     max-width: calc(100% - 2em);
 }
-.seo_article .related .related_article {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-row-gap: 1em;
-    grid-column-gap: 1em;
-    margin: 1em 0 2em 0;
+.seo_article .related img {
+    max-width: 100%;
 }
 
 @media (max-width: 600px) {
