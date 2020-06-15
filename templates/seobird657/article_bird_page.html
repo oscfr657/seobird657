@@ -14,12 +14,22 @@
 
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "{{ current_site.site_name|default:'' }}"
+            "@id": "{{ page.full_url }}"
          },
 
         "author": {
             "@type": "Person",
             "name": "{{ page.specific.author }}"
+        },
+
+        "publisher": {
+            "@type": "Organization",
+            {% image settings.seobird657.SeoSettings.logo height-60 as site_logo %}
+            "name": "{{ current_site.site_name|default:'' }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ site_logo.url }}"
+            }
         },
     
         "headline": "{{ page.title }}",

@@ -11,12 +11,29 @@ from wagtail.admin.edit_handlers import (FieldPanel, StreamFieldPanel)
 
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from wagtail.contrib.settings.models import BaseSetting, register_setting
+
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from taggit.models import TaggedItemBase
 
 from .blocks import (CodeBirdBlock, HTMLBirdBlock, MediaFileBirdBlock)
+
+
+@register_setting
+class SeoSettings(BaseSetting):
+    logo = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=True, null=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+        )
+
+    panels = [
+        ImageChooserPanel('logo'),
+    ]
+
 
 class BirdMixin(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
