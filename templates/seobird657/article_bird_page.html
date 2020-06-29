@@ -84,8 +84,9 @@
     <div class="intro" >{{ page.specific.intro|richtext }}</div>
     {% endif %}
     
-    {{ page.specific.article }}
+    {{ page.specific.body }}
     
+    {% if related %}
     <div class="related">
         <h3 >Related articles</h3>
         <div class="related_article">
@@ -110,5 +111,7 @@
         {% endfor %}
         </div>
     </div>
+    {% endif %}
+
 </div>
 {% endblock %}

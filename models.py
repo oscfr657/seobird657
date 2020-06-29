@@ -84,7 +84,30 @@ class RecipeBirdPageTag(TaggedItemBase):
         related_name='tagged_items')
 
 
+class RecipeBlock(blocks.StructBlock):
+    ingredients = blocks.ListBlock(
+        blocks.StructBlock([
+            ('ingredient', blocks.CharBlock()),
+            ('amount', blocks.CharBlock(required=False)),
+            ]))
+    instructions = blocks.ListBlock(
+        blocks.StructBlock([
+            ('name', blocks.CharBlock(required=False)),
+            ('text', blocks.CharBlock()),
+            ('url', blocks.URLBlock(required=False)),
+            ('image', ImageChooserBlock(required=False)),
+            ]))
+    class Meta:
+        template = 'blocks/recipe.html'
+
+
 class RecipeBirdPage(Page, BirdMixin):
+    body = StreamField([
+        ('recipe', RecipeBlock(
+            required=False, null=True
+            )),
+    ], blank=True, null=True)
+
     recipe = StreamField([
         ('ingredients', blocks.ListBlock(
             blocks.StructBlock([
@@ -98,14 +121,16 @@ class RecipeBirdPage(Page, BirdMixin):
                 ('url', blocks.URLBlock(required=False)),
                 ('image', ImageChooserBlock(required=False)),
                 ]))),
-    ])
+    ], blank=True, null=True)
     tags = ClusterTaggableManager(through=RecipeBirdPageTag, blank=True)
 
     search_fields = Page.search_fields + BirdMixin.search_fields + [
         index.SearchField('recipe'),
+        index.SearchField('body'),
     ]
     content_panels = Page.content_panels + BirdMixin.content_panels  + [
         StreamFieldPanel('recipe'),
+        StreamFieldPanel('body'),
         ]
     promote_panels = Page.promote_panels + [
         FieldPanel('tags'),
@@ -116,12 +141,15 @@ class RecipeBirdPage(Page, BirdMixin):
         if self.exclude_from_sitemap:
             return []
         else:
-            return super(RecipeBirdPage, self).get_sitemap_urls(request=request)
+            return super(RecipeBirdPage, self).get_sitemap_urls(
+                request=request)
 
     def get_context(self, request):
         context = super().get_context(request)
         context['related'] = RecipeBirdPage.objects.live(
-            ).public().not_in_menu().filter(tags__in=self.tags.all()).exclude(pk=self.pk).order_by('-go_live_at').distinct()
+            ).public().not_in_menu().filter(
+                tags__in=self.tags.all()).exclude(
+                    pk=self.pk).order_by('-go_live_at').distinct()
         return context
 
 
@@ -133,7 +161,7 @@ class ArticleBirdPageTag(TaggedItemBase):
 
 
 class ArticleBirdPage(Page, BirdMixin):
-    article = StreamField([
+    body = StreamField([
         ('paragraph', blocks.RichTextBlock(
             required=False, null=True,
             features=[
@@ -150,10 +178,10 @@ class ArticleBirdPage(Page, BirdMixin):
     tags = ClusterTaggableManager(through=ArticleBirdPageTag, blank=True)
 
     search_fields = Page.search_fields + BirdMixin.search_fields + [
-        index.SearchField('article'),
+        index.SearchField('body'),
     ]
     content_panels = Page.content_panels + BirdMixin.content_panels  + [
-        StreamFieldPanel('article'),
+        StreamFieldPanel('body'),
         ]
     promote_panels = Page.promote_panels + [
         FieldPanel('tags'),
@@ -164,10 +192,13 @@ class ArticleBirdPage(Page, BirdMixin):
         if self.exclude_from_sitemap:
             return []
         else:
-            return super(ArticleBirdPage, self).get_sitemap_urls(request=request)
+            return super(ArticleBirdPage, self).get_sitemap_urls(
+                request=request)
 
     def get_context(self, request):
         context = super().get_context(request)
         context['related'] = ArticleBirdPage.objects.live(
-            ).public().not_in_menu().filter(tags__in=self.tags.all()).exclude(pk=self.pk).order_by('-go_live_at').distinct()
+            ).public().not_in_menu().filter(
+                tags__in=self.tags.all()).exclude(
+                    pk=self.pk).order_by('-go_live_at').distinct()
         return context

@@ -53,7 +53,7 @@
 .seo_recipe img {
     max-width: 100%;
 }
-.seo_recipe .recipe {
+.seo_recipe .recipe .block-recipe {
     max-width: 100%;
     margin: auto;
     display: grid;
@@ -67,6 +67,7 @@
 
 .seo_article .block-paragraph {
     width: 100%;
+    margin-bottom: 1em;
 }
 .seo_article .block-paragraph .rich-text > h2,
 .seo_article .block-paragraph .rich-text > h3,
@@ -97,6 +98,13 @@
 }
 .seo_article .related img {
     max-width: 100%;
+}
+
+@media (max-width: 900px) {
+    .seo_recipe .related .related_recipe,
+    .seo_article .related .related_article {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 600px) {

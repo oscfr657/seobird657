@@ -1,0 +1,22 @@
+
+<div class="ingredients">
+    <h3>Ingredients:</h3>
+    {% for ingredient in value.ingredients %}
+        <ul>
+            {% if ingredient.amount %}
+            <li >{{ ingredient.amount }} {{ ingredient.ingredient }}</li>
+            {% else %}
+            <li >{{ ingredient.ingredient }}</li>
+            {% endif %}
+        </ul>
+    {% endfor %}
+</div>
+
+<div class="instructions">
+    <h3>Instructions:</h3>
+    {% for instruction in value.instructions %}
+        <div class="instruction" >
+            <p >{{ instruction.text }}</p>
+        </div>
+    {% endfor %}
+</div>
