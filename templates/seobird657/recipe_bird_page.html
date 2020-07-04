@@ -29,9 +29,8 @@
         "image": "{{ tmp_photo.url }}",
 
         {% for block in page.specific.body %}
-            {% if block.block_type == 'ingredients' %}
             "recipeIngredient": [
-                {% for ingredient in block.value %}
+                {% for ingredient in block.value.ingredients %}
                     {% if ingredient.amount %}
                     "{{ ingredient.amount }} {{ ingredient.ingredient }}"
                     {% else %}
@@ -42,11 +41,9 @@
                     {% endif %}
                 {% endfor %}
             ],
-            {% endif %}
 
-            {% if block.block_type == 'instructions' %}
             "recipeInstructions": [
-                {% for instruction in block.value %}
+                {% for instruction in block.value.instructions %}
                     { "@type": "HowToStep",
                     "name": "{{ instruction.name }}",
                     "text": "{{ instruction.text }}",
@@ -60,7 +57,6 @@
                     {% endif %}
                 {% endfor %}
                 ],
-            {% endif %}
         {% endfor %}
         
         "name": "{{ page.title }}"
