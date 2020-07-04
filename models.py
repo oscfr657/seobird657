@@ -149,7 +149,7 @@ class RecipeBirdPage(Page, BirdMixin):
         context['related'] = RecipeBirdPage.objects.live(
             ).public().not_in_menu().filter(
                 tags__in=self.tags.all()).exclude(
-                    pk=self.pk).order_by('-go_live_at').distinct()
+                    pk=self.pk).order_by('-go_live_at').distinct()[:3]
         return context
 
 
@@ -200,5 +200,5 @@ class ArticleBirdPage(Page, BirdMixin):
         context['related'] = ArticleBirdPage.objects.live(
             ).public().not_in_menu().filter(
                 tags__in=self.tags.all()).exclude(
-                    pk=self.pk).order_by('-go_live_at').distinct()
+                    pk=self.pk).order_by('-go_live_at').distinct()[:3]
         return context

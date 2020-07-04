@@ -67,7 +67,7 @@
 
 .seo_article .block-paragraph {
     width: 100%;
-    margin-bottom: 1em;
+    margin: 1em auto;
 }
 .seo_article .block-paragraph .rich-text > h2,
 .seo_article .block-paragraph .rich-text > h3,
