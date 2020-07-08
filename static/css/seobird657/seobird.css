@@ -84,6 +84,12 @@
     max-width: 100%;
     margin: auto;
 }
+.seo_article .block-paragraph .rich-text > h3,
+.seo_article .block-paragraph .rich-text > h4,
+.seo_article .block-paragraph .rich-text > h5,
+.seo_article .block-paragraph .rich-text > h6 {
+    margin: 0.5em auto;
+}
 .seo_article .block-paragraph .rich-text > ul {
     padding: revert;
 }
