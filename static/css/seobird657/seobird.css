@@ -28,6 +28,10 @@
 .seo_article > img {
     width: 1200px;
 }
+.seo_recipe > .intro,
+.seo_article > .intro {
+    max-width: calc(100% - 2em);
+}
 .seo_recipe .related .related_recipe,
 .seo_article .related .related_article {
     display: grid;
@@ -98,10 +102,12 @@
     display: block;
     width: 1200px;
 }
+.seo_recipe .related,
 .seo_article .related {
     margin: 1em auto;
     width: 900px;
     max-width: calc(100% - 2em);
+    border-top: solid black 1px;
 }
 .seo_article .related img {
     max-width: 100%;

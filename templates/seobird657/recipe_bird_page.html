@@ -23,7 +23,7 @@
         "keywords": "{% for tag in page.specific.tags.all %}{{ tag }}{% endfor %}",
         {% endif %}
 
-        "description": "{{ page.specific.intro|default:''|striptags }}",
+        "description": "{{ page.specific.search_description|default:''|striptags }}",
 
         {% image page.specific.cover_image width-720 as tmp_photo %}
         "image": "{{ tmp_photo.url }}",
@@ -102,7 +102,6 @@
 
     {% if related %}
     <div class="related">
-        <h3 >Related Recipes</h3>
         <div class="related_recipe">
         {% for recipe in related %}
             <a href="{% pageurl recipe %}" >
