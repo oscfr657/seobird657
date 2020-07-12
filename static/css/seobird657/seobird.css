@@ -121,7 +121,7 @@
 }
 
 @media (max-width: 600px) {
-    .seo_recipe .recipe {
+    .seo_recipe .recipe .block-recipe {
         grid-template-columns: 1fr;
     }
     .seo_recipe .recipe .ingredients > ul {
