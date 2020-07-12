@@ -1,15 +1,15 @@
 
 <div class="ingredients">
     <h3>Ingredients:</h3>
+    <ul>
     {% for ingredient in value.ingredients %}
-        <ul>
             {% if ingredient.amount %}
             <li >{{ ingredient.amount }} {{ ingredient.ingredient }}</li>
             {% else %}
             <li >{{ ingredient.ingredient }}</li>
             {% endif %}
-        </ul>
     {% endfor %}
+    </ul>
 </div>
 
 <div class="instructions">
