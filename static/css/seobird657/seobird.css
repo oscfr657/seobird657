@@ -105,7 +105,7 @@
 .seo_article .related {
     margin: 1em auto;
     width: 900px;
-    max-width: calc(100% - 2em);
+    max-width: 100%;
     border-top: solid black 1px;
 }
 .seo_article .related img {
@@ -120,6 +120,10 @@
 }
 
 @media (max-width: 600px) {
+    .seo_recipe .related .related_recipe,
+    .seo_article .related .related_article {
+        grid-template-columns: 1fr;
+    }
     .seo_recipe .recipe .block-recipe {
         grid-template-columns: 1fr;
     }
