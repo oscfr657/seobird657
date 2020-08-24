@@ -9,7 +9,10 @@
     {
         "@context": "http://schema.org",
         "@type": "Recipe",
-        "author": "{{ page.specific.author }}",
+        "author": {
+            "@type": "Person",
+            "name": "{{ page.specific.author }}"
+        },
 
         {% if page.go_live_at %}
         "datePublished": "{{ page.go_live_at|date:"Y-m-d" }}",
@@ -25,8 +28,10 @@
 
         "description": "{{ page.specific.search_description|default:''|striptags }}",
 
-        {% image page.specific.cover_image width-720 as tmp_photo %}
-        "image": "{{ tmp_photo.url }}",
+        {% image page.specific.cover_image fill-400x400-c100 as 1_1_photo %}
+        {% image page.specific.cover_image fill-720x540-c100 as 4_3_photo %}
+        {% image page.specific.cover_image width-720 as 16_9_photo %}
+        "image": "[ {{ 1_1_photo.url }}, {{ 4_3_photo.url }}, {{ 16_9_photo.url }} ]",
 
         {% for block in page.specific.body %}
             "recipeIngredient": [
@@ -110,7 +115,7 @@
                     <img src="{{ tmp_img.url }}" alt="{{ tmp_img.alt }}" class="cover_image" loading="lazy" />
                 </div>
                 <div class="related_recipe_title">
-                    <h4>{{ recipe.title }}</h4>
+                    <h5>{{ recipe.title }}</h5>
                     <span >
                     {% if recipe.go_live_at and recipe.specific.show_date %}
                         {{ recipe.go_live_at|date:"d M Y" }} 

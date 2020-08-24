@@ -17,6 +17,19 @@
             "@id": "{{ page.full_url }}"
          },
 
+        "headline": "{{ page.title }}",
+
+        {% image page.specific.cover_image fill-400x400-c100 as 1_1_photo %}
+        {% image page.specific.cover_image fill-720x540-c100 as 4_3_photo %}
+        {% image page.specific.cover_image width-720 as 16_9_photo %}
+        "image": "[ {{ 1_1_photo.url }}, {{ 4_3_photo.url }}, {{ 16_9_photo.url }} ]",
+
+        {% if page.go_live_at %}
+        "datePublished": "{{ page.go_live_at|date:"Y-m-d" }}",
+        {% else %}
+        "datePublished": "{{ page.first_published_at|date:"Y-m-d" }}",
+        {% endif %}
+
         "author": {
             "@type": "Person",
             "name": "{{ page.specific.author }}"
@@ -32,24 +45,14 @@
             }
         },
     
-        "headline": "{{ page.title }}",
-
-        {% if page.go_live_at %}
-        "datePublished": "{{ page.go_live_at|date:"Y-m-d" }}",
-        {% else %}
-        "datePublished": "{{ page.first_published_at|date:"Y-m-d" }}",
-        {% endif %}
-
         {% if page.specific.tags.count > 1 %}
         "keywords": "{% for tag in page.specific.tags.all %}{% if forloop.last %}{{ tag }}{% else %}{{ tag }}, {% endif %}{% endfor %}",
         {% elif page.specific.tags.exists %}
         "keywords": "{% for tag in page.specific.tags.all %}{{ tag }}{% endfor %}",
         {% endif %}
 
-        "description": "{{ page.specific.search_description|default:''|striptags }}",
+        "description": "{{ page.specific.search_description|default:''|striptags }}"
 
-        {% image page.specific.cover_image width-720 as tmp_photo %}
-        "image": "{{ tmp_photo.url }}"
     }
 </script>
 {% endblock ldjson %}
@@ -96,7 +99,7 @@
                     <img src="{{ tmp_img.url }}" alt="{{ tmp_img.alt }}" class="cover_image" loading="lazy" />
                 </div>
                 <div class="related_article_title">
-                    <h4>{{ article.title }}</h4>
+                    <h5>{{ article.title }}</h5>
                     <span >
                     {% if article.go_live_at and article.specific.show_date %}
                         {{ article.go_live_at|date:"d M Y" }} 
