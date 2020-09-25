@@ -20,6 +20,8 @@ from taggit.models import TaggedItemBase
 
 from .blocks import (CodeBirdBlock, HTMLBirdBlock, MediaFileBirdBlock)
 
+from .feeds import RSSFeed
+
 
 @register_setting
 class SeoSettings(BaseSetting):
@@ -202,3 +204,49 @@ class ArticleBirdPage(Page, BirdMixin):
                 articlebirdpage__tags__in=self.tags.all()).exclude(
                     pk=self.pk).order_by('-go_live_at').distinct()[:3]
         return context
+
+
+class RSSBirdPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'RSSBirdPage',
+        on_delete=models.CASCADE,
+        related_name='tagged_items')
+
+class RSSBirdPage(Page):
+    language = models.CharField(max_length=5, blank=True, null=True)
+
+    author = models.CharField(max_length=128, blank=True, null=True)
+    author_email = models.CharField(max_length=128, blank=True, null=True)
+    author_link = models.URLField(blank=True, null=True)
+
+    tags = ClusterTaggableManager(through=RSSBirdPageTag, blank=True)
+
+    feed_copyright = models.CharField(max_length=128, blank=True, null=True)
+
+    # exclude_from_sitemap = models.BooleanField(default=False)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('language'),
+        FieldPanel('author'),
+        FieldPanel('author_email'),
+        FieldPanel('author_link'),
+        FieldPanel('feed_copyright'),
+    ]
+    promote_panels = Page.promote_panels + [
+        FieldPanel('tags'),
+        ]
+    #settings_panels = Page.settings_panels + [
+    #    FieldPanel('exclude_from_sitemap'),
+    #]
+
+    def serve(self, request):
+        return RSSFeed(self)(request)
+
+    def get_sitemap_urls(self, request=None):
+        return []
+        #if self.exclude_from_sitemap:
+        #    return []
+        #else:
+        #    return super(RSSBirdPage, self).get_sitemap_urls(request=request)
+
+

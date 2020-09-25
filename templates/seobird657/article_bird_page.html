@@ -79,8 +79,16 @@
     </div>
 
     {% if page.specific.cover_image and page.specific.show_coverImage %}
-    {% image page.specific.cover_image width-720 as tmp_photo %}
-    <img src="{{ tmp_photo.url }}" alt="{{ tmp_photo.alt }}"  />
+    {% image page.specific.cover_image width-400 as 400_photo %}
+    {% image page.specific.cover_image width-720 as 720_photo %}
+    {% image page.specific.cover_image width-900 as 900_photo %}
+    <img srcset="{{ 400_photo.url }} 400w,
+                {{ 720_photo.url }} 720w,
+                {{ 900_photo.url }} 900w"
+        sizes="(max-width: 400px) 400px,
+                (max-width: 720px) 720px,
+                900px"
+        src="{{ 900_photo.url }}" alt="{{ 720_photo.alt }}" loading="lazy" />
     {% endif %}
     
     {% if page.specific.intro %}
@@ -94,9 +102,21 @@
         <div class="related_article">
         {% for article in related %}
             <a href="{% pageurl article %}" >
-                {% image article.specific.cover_image min-400x400 as tmp_img %}
                 <div class="related_article_cover">
-                    <img src="{{ tmp_img.url }}" alt="{{ tmp_img.alt }}" class="cover_image" loading="lazy" />
+                    {% image article.specific.cover_image width-600 as 600_photo %}
+                    {% image article.specific.cover_image width-500 as 500_photo %}
+                    {% image article.specific.cover_image width-400 as 400_photo %}
+                    {% image article.specific.cover_image width-300 as 300_photo %}
+                    <img srcset="{{ 400_photo.url }} 400w,
+                                {{ 500_photo.url }} 500w,
+                                {{ 600_photo.url }} 600w,
+                                {{ 300_photo.url }} 900w"
+                        sizes="(max-width: 400px) 400px,
+                                (max-width: 600px) 600px,
+                                (max-width: 900px) 500px,
+                                900px"
+                        src="{{ 600_photo.url }}"
+                        alt="{{ 600_photo.alt }}" class="cover_image" loading="lazy" />
                 </div>
                 <div class="related_article_title">
                     <h5>{{ article.title }}</h5>
