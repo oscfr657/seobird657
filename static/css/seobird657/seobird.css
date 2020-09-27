@@ -1,9 +1,9 @@
 
-.seo_recipe > h2,
+.seo_recipe > h1,
 .seo_recipe > img,
 .seo_recipe > .meta,
 .seo_recipe > .intro,
-.seo_article > h2,
+.seo_article > h1,
 .seo_article > img,
 .seo_article > .meta,
 .seo_article > .intro {
@@ -13,10 +13,9 @@
     max-width: 100%;
     margin: auto;
 }
-.seo_recipe > h2,
-.seo_article > h2 {
+.seo_recipe > h1,
+.seo_article > h1 {
     padding: 0.5em 0 0 0;
-    text-align: center;
 }
 .seo_recipe > .meta,
 .seo_article > .meta {
@@ -26,6 +25,13 @@
 .seo_recipe > img,
 .seo_article > img {
     width: 1200px;
+}
+.seo_recipe .related h2,
+.seo_article .related h2 {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+    text-align: left;
 }
 .seo_recipe .related .related_recipe,
 .seo_article .related .related_article {
@@ -87,6 +93,7 @@
     max-width: 100%;
     margin: auto;
 }
+.seo_article .block-paragraph .rich-text > h2,
 .seo_article .block-paragraph .rich-text > h3,
 .seo_article .block-paragraph .rich-text > h4,
 .seo_article .block-paragraph .rich-text > h5,

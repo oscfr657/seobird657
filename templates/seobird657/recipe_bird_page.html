@@ -78,12 +78,12 @@
 {% block content %}
 <div class="seo_recipe" >
 
-    <h2 >{{ page.title }}</h2>
+    <h1 >{{ page.title }}</h1>
 
     <div class="meta" >
-    {% if page.go_live_at and page.specific.show_date %}
+    {% if page.go_live_at %}
     <span >{{ page.go_live_at|date:"d M Y" }}</span>
-    {% elif page.specific.show_date %}
+    {% else %}
     <span >{{ page.first_published_at|date:"d M Y" }}</span>
     {% endif %}
     <span> / </span>
@@ -114,6 +114,7 @@
     </div>
 
     {% if related %}
+    <aside>
     <div class="related">
         <div class="related_recipe">
         {% for recipe in related %}
@@ -135,11 +136,11 @@
                         alt="{{ 600_photo.alt }}" class="cover_image" loading="lazy" />
                 </div>
                 <div class="related_recipe_title">
-                    <h5>{{ recipe.title }}</h5>
+                    <h2>{{ recipe.title }}</h2>
                     <span >
-                    {% if recipe.go_live_at and recipe.specific.show_date %}
-                        {{ recipe.go_live_at|date:"d M Y" }} 
-                    {% elif recipe.specific.show_date  %}
+                    {% if recipe.go_live_at %}
+                        {{ recipe.go_live_at|date:"d M Y" }}
+                    {% else %}
                         {{ recipe.first_published_at|date:"d M Y" }}
                     {% endif %}
                     / {{ recipe.specific.author }}
@@ -149,6 +150,7 @@
         {% endfor %}
         </div>
     </div>
+    </aside>
     {% endif %}
 
 </div>

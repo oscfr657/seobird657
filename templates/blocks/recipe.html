@@ -1,6 +1,6 @@
 
 <div class="ingredients">
-    <h3>Ingredients:</h3>
+    <h2>Ingredients:</h2>
     <ul>
     {% for ingredient in value.ingredients %}
             {% if ingredient.amount %}
@@ -13,7 +13,7 @@
 </div>
 
 <div class="instructions">
-    <h3>Instructions:</h3>
+    <h2>Instructions:</h2>
     {% for instruction in value.instructions %}
         <div class="instruction" >
             <p >{{ instruction.text }}</p>
