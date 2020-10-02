@@ -1,0 +1,22 @@
+
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div >
+
+    {% if obj.specific.cover_image %}
+    {% image obj.specific.cover_image 1400x1400  as apple_photo %}
+    <img style="margin: 1em 0;" src="{{ apple_photo.url }}" alt="{{ apple_photo.alt }}" loading="lazy" />
+    {% endif %}
+
+    {% if obj.specific.image %}
+    {% image obj.specific.image 1400x1400 as apple_photo %}
+    <img style="margin: 1em 0;" src="{{ apple_photo.url }}" alt="{{ apple_photo.alt }}" loading="lazy" />
+    {% endif %}
+
+    {% if obj.search_description %}
+    <div >{{ obj.search_description|richtext }}</div>
+    {% endif %}
+
+</div>
+

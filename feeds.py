@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.template.loader import render_to_string
 from django.contrib.syndication.views import Feed
 from django.utils import feedgenerator
 
@@ -6,6 +6,7 @@ from django.utils import feedgenerator
 class RSSFeed(Feed):
 
     feed_type = feedgenerator.Rss201rev2Feed
+    description_template = 'seobird657/feed_item_description.html'
 
     def __init__(self, page):
         super(RSSFeed, self).__init__()
@@ -13,7 +14,10 @@ class RSSFeed(Feed):
         self.title = page.title
         self.link = page.get_parent().full_url
         self.feed_url = page.full_url
-        self.description = page.search_description
+
+    def description(self):
+        rendered = render_to_string('seobird657/feed_description.html', { 'obj': self.page })
+        return rendered
 
     def author_name(self):
         return str(self.page.specific.author) if self.page.specific.author else self.page.owner.username
@@ -52,10 +56,7 @@ class RSSFeed(Feed):
 
     def item_title(self, item):
         return item.title
-        
-    def item_description(self, item):
-        return item.search_description
-    
+
     def item_link(self, item):
         return item.full_url
 
