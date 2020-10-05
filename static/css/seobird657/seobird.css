@@ -1,4 +1,12 @@
 
+.seo_article,
+.seo_recipe {
+    --content-width: 900px;
+    margin: auto;
+    width: 900px;
+    max-width: calc(100% - 2em);
+}
+
 .seo_recipe > h1,
 .seo_recipe > img,
 .seo_recipe > .meta,
@@ -49,12 +57,11 @@
 .seo_article .related .related_article .related_article_title span {
     font-size: 1em;
 }
-.seo_article,
-.seo_recipe {
-    margin: auto;
-    width: 900px;
-    max-width: calc(100% - 2em);
+
+.breadcrumbs {
+    max-width: calc(100%);
 }
+
 .seo_recipe img {
     max-width: 100%;
 }
@@ -123,6 +130,11 @@
     .seo_article .related .related_article {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .breadcrumbs {
+        max-width: calc(100% - 1em);
+    }
+
 }
 
 @media (max-width: 600px) {
