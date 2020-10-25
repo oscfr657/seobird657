@@ -39,7 +39,7 @@ class SeoSettings(BaseSetting):
 
 class BirdMixin(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
-    cover_image = models.ForeignKey(
+    image = models.ForeignKey(
         'wagtailimages.Image',
         blank=True, null=True,
         on_delete=models.SET_NULL,
@@ -68,7 +68,7 @@ class BirdMixin(models.Model):
     ]
     content_panels = [
         FieldPanel('author'),
-        ImageChooserPanel('cover_image'),
+        ImageChooserPanel('image'),
         FieldPanel('intro', classname="full"),
     ]
     settings_panels = [

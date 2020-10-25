@@ -17,11 +17,6 @@
         <span >{{ obj.owner }}</span>
     </div>
 
-    {% if obj.specific.cover_image %}
-    {% image obj.specific.cover_image width-500 as 500_photo %}
-    <img style="margin: 1em 0;" src="{{ 500_photo.url }}" alt="{{ 500_photo.alt }}" loading="lazy" />
-    {% endif %}
-
     {% if obj.specific.image %}
     {% image obj.specific.image width-500 as 500_photo %}
     <img style="margin: 1em 0;" src="{{ 500_photo.url }}" alt="{{ 500_photo.alt }}" loading="lazy" />
