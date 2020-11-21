@@ -7,10 +7,10 @@ A small Wagtail app
 
 ### Tested with ###
 
-```
+``` Python
 Django == 3.1
-Wagtail == 2.10.1
-Wagtailmedia == 0.5.0
+Wagtail == 2.11.2
+Wagtailmedia == 0.7.0
 ```
 
 ## Installation ###
@@ -69,14 +69,17 @@ add to the TEMPLATES settings
     ]
 ```
 
-#### I recommend: ####
+#### I recommend ####
 
-and set the WAGTAILIMAGES_FORMAT_CONVERSIONS setting 
+and set the WAGTAILIMAGES_FORMAT_CONVERSIONS setting
 
 ``` python
 WAGTAILIMAGES_FORMAT_CONVERSIONS = {
-    'bmp': 'jpeg',
-    'webp': 'webp',
+    'bmp': 'webp',
+    'jpeg': 'webp',
+    'jpg': 'webp',
+    'JPG':'webp',
+    'webp':'webp',
 }
 ```
 
