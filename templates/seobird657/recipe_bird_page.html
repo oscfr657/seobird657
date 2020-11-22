@@ -51,7 +51,7 @@
                 {% for instruction in block.value.instructions %}
                     { "@type": "HowToStep",
                     "name": "{{ instruction.name }}",
-                    "text": "{{ instruction.text }}",
+                    "text": "{{ instruction.text }}"{% if instruction.image or instruction.url %},{% endif %}
                     {% if instruction.url %}
                     "url": "{{ instruction.url }}"{% if instruction.image %},{% endif %}
                     {% endif %}
