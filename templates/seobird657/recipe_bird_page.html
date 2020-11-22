@@ -28,9 +28,9 @@
 
         "description": "{{ page.specific.search_description|default:''|striptags }}",
 
-        {% image page.specific.cover_image fill-400x400-c100 as 1_1_photo %}
-        {% image page.specific.cover_image fill-720x540-c100 as 4_3_photo %}
-        {% image page.specific.cover_image width-720 as 16_9_photo %}
+        {% image page.specific.image fill-400x400-c100 as 1_1_photo %}
+        {% image page.specific.image fill-720x540-c100 as 4_3_photo %}
+        {% image page.specific.image width-720 as 16_9_photo %}
         "image": ["{{ 1_1_photo.url }}", "{{ 4_3_photo.url }}", "{{ 16_9_photo.url }}"],
 
         {% for block in page.specific.body %}
@@ -52,9 +52,13 @@
                     { "@type": "HowToStep",
                     "name": "{{ instruction.name }}",
                     "text": "{{ instruction.text }}",
+                    {% if instruction.url %}
                     "url": "{{ instruction.url }}",
+                    {% endif %}
+                    {% if instruction.image %}
                     {% image instruction.image original as inst_img %}
                     "image": "{{ inst_img.url }}"
+                    {% endif %}
                     {% if not forloop.last %}
                     },
                     {% else %}
