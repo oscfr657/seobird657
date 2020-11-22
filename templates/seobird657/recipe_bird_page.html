@@ -53,7 +53,7 @@
                     "name": "{{ instruction.name }}",
                     "text": "{{ instruction.text }}",
                     {% if instruction.url %}
-                    "url": "{{ instruction.url }}",
+                    "url": "{{ instruction.url }}"{% if instruction.image %},{% endif %}
                     {% endif %}
                     {% if instruction.image %}
                     {% image instruction.image original as inst_img %}
