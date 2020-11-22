@@ -5,7 +5,7 @@
 <div >
 
     {% if obj.specific.image %}
-    {% image obj.specific.image 1400x1400 as apple_photo %}
+    {% image obj.specific.image min-1400x1400 as apple_photo %}
     <img style="margin: 1em 0;" src="{{ apple_photo.url }}" alt="{{ apple_photo.alt }}" loading="lazy" />
     {% endif %}
 

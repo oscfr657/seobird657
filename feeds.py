@@ -20,13 +20,10 @@ class RSSFeed(Feed):
         return rendered
 
     def author_name(self):
-        return str(self.page.specific.author) if self.page.specific.author else self.page.owner.username
+        return self.page.owner.get_full_name()
     
     def author_email(self):
-        try:
-            return str(self.page.specific.author_email) if self.page.specific.author_email else self.page.owner.email
-        except AttributeError:
-            return self.page.owner.email
+        return self.page.owner.email
     
     def author_link(self):
         try:
@@ -44,10 +41,7 @@ class RSSFeed(Feed):
         try:
             return self.page.specific.feed_copyright
         except AttributeError:
-            try:
-                return 'Copyright (c) ' + str(self.page.go_live_at.year) + ', ' + self.page.specific.author
-            except AttributeError:
-                return 'Copyright (c) ' + str(self.page.go_live_at.year) + ', ' + self.page.owner.username
+            return 'Copyright (c) ' + str(self.page.go_live_at.year) + ', ' + self.page.owner.get_full_name()
 
     def items(self):
         return self.page.get_parent().get_descendants().live(
@@ -66,16 +60,10 @@ class RSSFeed(Feed):
     item_guid_is_permalink = True
 
     def item_author_name(self, item):
-        try:
-            return str(item.specific.author) if item.specific.author else item.owner.username
-        except AttributeError:
-            return item.owner.username
+        return item.owner.get_full_name()
         
     def item_author_email(self, item):
-        try:
-            return str(item.specific.author_email) if item.specific.author_email else item.owner.email
-        except AttributeError:
-            return item.owner.email
+        return item.owner.email
         
 
     def item_author_link(self, item):
@@ -121,8 +109,5 @@ class RSSFeed(Feed):
         try:
             return item.specific.feed_copyright
         except:
-            try:
-                return 'Copyright (c) ' + str(item.go_live_at.year) + ', ' + str(item.specific.author)
-            except:
-                return 'Copyright (c) ' + str(item.first_published_at.year) + ', ' + item.owner.username
+            return 'Copyright (c) ' + str(item.first_published_at.year) + ', ' + item.owner.get_full_name()
 

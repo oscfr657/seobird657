@@ -64,9 +64,9 @@ class BirdMixin(models.Model):
 
     search_fields = [
         index.SearchField('intro'),
-        index.FilterField('author'),
     ]
     content_panels = [
+        FieldPanel('owner'),
         FieldPanel('author'),
         ImageChooserPanel('image'),
         FieldPanel('intro', classname="full"),
@@ -201,6 +201,12 @@ class RSSBirdPageTag(TaggedItemBase):
         related_name='tagged_items')
 
 class RSSBirdPage(Page):
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=True, null=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     language = models.CharField(max_length=5, blank=True, null=True)
 
     author = models.CharField(max_length=128, blank=True, null=True)
@@ -214,7 +220,9 @@ class RSSBirdPage(Page):
     # exclude_from_sitemap = models.BooleanField(default=False)
 
     content_panels = Page.content_panels + [
+        ImageChooserPanel('image'),
         FieldPanel('language'),
+        FieldPanel('owner'),
         FieldPanel('author'),
         FieldPanel('author_email'),
         FieldPanel('author_link'),

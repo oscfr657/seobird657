@@ -14,7 +14,7 @@
         <span >{{ obj.first_published_at|date:"d M Y" }}</span>
     {% endif %}
         <span> / </span>
-        <span >{{ obj.owner }}</span>
+        <span >{{ obj.owner.get_full_name }}</span>
     </div>
 
     {% if obj.specific.image %}

@@ -11,7 +11,7 @@
         "@type": "Recipe",
         "author": {
             "@type": "Person",
-            "name": "{{ page.specific.author }}"
+            "name": "{{ page.owner.get_full_name }}"
         },
 
         {% if page.go_live_at %}
@@ -100,7 +100,7 @@
     <span >{{ page.first_published_at|date:"d M Y" }}</span>
     {% endif %}
     <span> / </span>
-    <span class="author">{{ page.specific.author }}</span>
+    <span class="author">{{ page.owner.get_full_name }}</span>
     </div>
     
     {% if page.specific.image and page.specific.show_coverImage %}
@@ -156,7 +156,7 @@
                     {% else %}
                         {{ recipe.first_published_at|date:"d M Y" }}
                     {% endif %}
-                    / {{ recipe.specific.author }}
+                    / {{ recipe.owner.get_full_name }}
                     </span>
                 </div>
             </a>
