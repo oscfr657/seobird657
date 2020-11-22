@@ -110,28 +110,12 @@ class RecipeBirdPage(Page, BirdMixin):
             )),
     ], blank=True, null=True)
 
-    recipe = StreamField([
-        ('ingredients', blocks.ListBlock(
-            blocks.StructBlock([
-                ('ingredient', blocks.CharBlock()),
-                ('amount', blocks.CharBlock(required=False)),
-                ]))),
-        ('instructions', blocks.ListBlock(
-            blocks.StructBlock([
-                ('name', blocks.CharBlock(required=False)),
-                ('text', blocks.CharBlock()),
-                ('url', blocks.URLBlock(required=False)),
-                ('image', ImageChooserBlock(required=False)),
-                ]))),
-    ], blank=True, null=True)
     tags = ClusterTaggableManager(through=RecipeBirdPageTag, blank=True)
 
     search_fields = Page.search_fields + BirdMixin.search_fields + [
-        index.SearchField('recipe'),
         index.SearchField('body'),
     ]
     content_panels = Page.content_panels + BirdMixin.content_panels  + [
-        StreamFieldPanel('recipe'),
         StreamFieldPanel('body'),
         ]
     promote_panels = Page.promote_panels + [
