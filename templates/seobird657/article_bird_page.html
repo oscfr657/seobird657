@@ -64,7 +64,7 @@
 
 
 {% block content %}
-<div class="seo_article" >
+<div class="seo_content" >
 
     {% if page.specific.show_breadcrumbs %}
     <div class="breadcrumbs">
@@ -109,10 +109,10 @@
     {% if related %}
     <aside>
     <div class="related">
-        <div class="related_article">
+        <div class="related_item">
         {% for article in related %}
             <a href="{% pageurl article %}" >
-                <div class="related_article_cover">
+                <div class="related_item_cover">
                     {% image article.specific.image width-600 as 600_photo %}
                     {% image article.specific.image width-500 as 500_photo %}
                     {% image article.specific.image width-400 as 400_photo %}
@@ -128,7 +128,7 @@
                         src="{{ 600_photo.url }}"
                         alt="{{ 600_photo.alt }}" class="image" loading="lazy" />
                 </div>
-                <div class="related_article_title">
+                <div class="related_item_title">
                     <h2>{{ article.title }}</h2>
                     <span >
                     {% if article.go_live_at %}

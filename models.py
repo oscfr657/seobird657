@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import Q
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField, StreamField
@@ -191,6 +193,46 @@ class ArticleBirdPage(Page, BirdMixin):
                 articlebirdpage__tags__in=self.tags.all()).order_by(
                     '-go_live_at').distinct()[:3]
         context['related'] = related
+        return context
+
+
+class ListBirdPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'ListBirdPage',
+        on_delete=models.CASCADE,
+        related_name='tagged_items')
+
+
+class ListBirdPage(Page, BirdMixin):
+    tags = ClusterTaggableManager(through=ListBirdPageTag, blank=True)
+    search_fields = Page.search_fields + BirdMixin.search_fields
+    content_panels = Page.content_panels + BirdMixin.content_panels
+    promote_panels = Page.promote_panels + [ FieldPanel('tags'), ]
+    settings_panels = Page.settings_panels + BirdMixin.settings_panels
+
+    def get_sitemap_urls(self, request=None):
+        if self.exclude_from_sitemap:
+            return []
+        else:
+            return super(ListBirdPage, self).get_sitemap_urls(
+                request=request)
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        all_posts = Page.objects.live().public().not_in_menu().exclude(
+            pk=self.pk).filter(
+                Q(content_type__model='articlebirdpage')|
+                Q(content_type__model='recipebirdpage')
+                ).order_by('-go_live_at').distinct()
+        paginator = Paginator(all_posts, 5)
+        page = request.GET.get("page", 1)
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+        context['posts'] = posts
         return context
 
 

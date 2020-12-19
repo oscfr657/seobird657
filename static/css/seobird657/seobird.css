@@ -1,64 +1,52 @@
 
-.seo_article,
-.seo_recipe {
-    --content-width: 900px;
+.seo_content {
     margin: auto;
     width: 900px;
     max-width: calc(100% - 2em);
 }
 
-.seo_recipe > h1,
-.seo_recipe > img,
-.seo_recipe > .meta,
-.seo_recipe > .intro,
-.seo_article > h1,
-.seo_article > img,
-.seo_article > .meta,
-.seo_article > .intro {
+.seo_content h1,
+.seo_content img,
+.seo_content .meta,
+.seo_content .intro {
     display: block;
     padding: 0em 0;
     width: 900px;
     max-width: 100%;
     margin: auto;
 }
-.seo_recipe > h1,
-.seo_article > h1 {
-    padding: 0.5em 0 0 0;
+.seo_content h1 {
+    padding: 3rem 0 0 0;
 }
-.seo_recipe > .meta,
-.seo_article > .meta {
+.seo_content .meta {
     padding: 1em 0;
     text-align: center;
 }
-.seo_recipe > img,
-.seo_article > img {
+.seo_content img {
     width: 1200px;
+    max-width: 100%;
+    height: auto;
 }
-.seo_recipe .related h2,
-.seo_article .related h2 {
+.seo_content .related h2 {
     font-size: 20px;
     font-weight: 400;
     margin: 0;
     text-align: left;
 }
-.seo_recipe .related .related_recipe,
-.seo_article .related .related_article {
+.seo_content .related .related_item {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-row-gap: 1em;
     grid-column-gap: 1em;
     margin: 1em 0 2em 0;
 }
-.seo_recipe .related .related_recipe a,
-.seo_article .related .related_article a {
+.seo_content .related .related_item a {
     text-decoration: none;
 }
-.seo_recipe .related .related_recipe .related_recipe_title h4,
-.seo_article .related .related_article .related_article_title h4 {
+.seo_content .related .related_item .related_item_title h4 {
     margin: 0.5em 0 0 0;
 }
-.seo_recipe .related .related_recipe .related_recipe_title span,
-.seo_article .related .related_article .related_article_title span {
+.seo_content .related .related_item .related_item_title span {
     font-size: 1em;
 }
 
@@ -71,83 +59,141 @@
     text-decoration: none;
 }
 
-.seo_recipe img {
-    max-width: 100%;
-}
-.seo_recipe .recipe .block-recipe {
+.seo_content .block-recipe {
     max-width: 100%;
     margin: auto;
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-column-gap: 1em;
 }
-.seo_recipe .recipe .instructions .instruction {
+.seo_content .instructions .instruction {
     margin: 0.5em auto;
 }
 
 
-.seo_article .block-paragraph {
+.seo_content .block-paragraph {
     width: 100%;
     margin: 1em auto;
     max-width: 100%;
 }
-.seo_article .block-paragraph .rich-text > h2,
-.seo_article .block-paragraph .rich-text > h3,
-.seo_article .block-paragraph .rich-text > h4,
-.seo_article .block-paragraph .rich-text > h5,
-.seo_article .block-paragraph .rich-text > h6,
-.seo_article .block-paragraph .rich-text > p,
-.seo_article .block-paragraph .rich-text > blockquote,
-.seo_article .block-paragraph .rich-text > img,
-.seo_article .block-paragraph .rich-text > iframe,
-.seo_article .block-paragraph .rich-text > ol,
-.seo_article .block-paragraph .rich-text > ul {
+.seo_content .block-paragraph .rich-text > h2,
+.seo_content .block-paragraph .rich-text > h3,
+.seo_content .block-paragraph .rich-text > h4,
+.seo_content .block-paragraph .rich-text > h5,
+.seo_content .block-paragraph .rich-text > h6,
+.seo_content .block-paragraph .rich-text > p,
+.seo_content .block-paragraph .rich-text > blockquote,
+.seo_content .block-paragraph .rich-text > img,
+.seo_content .block-paragraph .rich-text > iframe,
+.seo_content .block-paragraph .rich-text > ol,
+.seo_content .block-paragraph .rich-text > ul {
     padding: 0em 0;
     width: 900px;
     max-width: 100%;
     margin: auto;
 }
-.seo_article .block-paragraph .rich-text > h2,
-.seo_article .block-paragraph .rich-text > h3,
-.seo_article .block-paragraph .rich-text > h4,
-.seo_article .block-paragraph .rich-text > h5,
-.seo_article .block-paragraph .rich-text > h6 {
+.seo_content .block-paragraph .rich-text > h2,
+.seo_content .block-paragraph .rich-text > h3,
+.seo_content .block-paragraph .rich-text > h4,
+.seo_content .block-paragraph .rich-text > h5,
+.seo_content .block-paragraph .rich-text > h6 {
     margin: 0.5em auto;
 }
-.seo_article .block-paragraph .rich-text > ul {
+.seo_content .block-paragraph .rich-text > ul {
     padding: revert;
 }
-.seo_article .block-paragraph .rich-text > img {
+.seo_content .block-paragraph .rich-text > img {
     display: block;
     width: 1200px;
 }
-.seo_recipe .related,
-.seo_article .related {
+.seo_content .block-paragraph > img.richtext-image {
+    width: 500px;
+    margin: 1em 0px;
+}
+
+.seo_content .related {
     margin: 1em auto;
     width: 900px;
     max-width: 100%;
     border-top: solid black 1px;
 }
-.seo_article .related img {
+.seo_content .related img {
     max-width: 100%;
 }
 
+.seo_content_image {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    color: white;
+    background-color: #000000;
+}
+.seo_content_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.seo_content_image .intro {
+    position: absolute;
+    bottom: 50%;
+    width: 900px;
+    max-width: calc(100% - 2em);
+    text-align: center;
+    margin: auto;
+    left: 0;
+    right: 0;
+    transform: translateY(50%);
+}
+.seo_content_image .intro a {
+    color: white;
+}
+.seo_content_image .intro ul {
+    text-align: left;
+}
+.seo_content .list_page {
+    border-bottom: solid black 4px;
+}
+.seo_content .list_page > a {
+    text-decoration: none;
+}
+.seo_content .list_page .block-code {
+    max-width: calc(100% - 2em);
+}
+
+.seo_content ul.paginate {
+    list-style: none;
+    margin: 2em auto;
+    text-align: center;
+    padding: 0;
+}
+.seo_content ul.paginate li {
+    display: inline;
+}
+.seo_content ul.paginate > li.previous > a:nth-child(1) {
+    text-decoration: none;
+    padding: 0 1em;
+}
+.seo_content ul.paginate > li.next > a:nth-child(1) {
+    text-decoration: none;
+    padding: 0 1em;
+    background-color: black;
+    color: white;
+}
+
 @media (max-width: 900px) {
-    .seo_recipe .related .related_recipe,
-    .seo_article .related .related_article {
+    .seo_content .related .related_item {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 600px) {
-    .seo_recipe .related .related_recipe,
-    .seo_article .related .related_article {
+    .seo_content .related .related_item {
         grid-template-columns: 1fr;
     }
-    .seo_recipe .recipe .block-recipe {
+    .seo_content .block-recipe {
         grid-template-columns: 1fr;
     }
-    .seo_recipe .recipe .ingredients > ul {
+    .seo_content .block-recipe .ingredients > ul {
         margin: auto;
     }
 }
