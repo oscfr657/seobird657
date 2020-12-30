@@ -2,7 +2,7 @@
 .seo_content {
     margin: auto;
     width: 900px;
-    max-width: calc(100% - 2em);
+    max-width: calc(100vw - 2em);
 }
 
 .seo_content h1,
@@ -123,7 +123,7 @@
 
 .seo_content_image {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 500px;
     color: white;
     background-color: #000000;
