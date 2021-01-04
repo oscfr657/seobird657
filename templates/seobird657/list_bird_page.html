@@ -65,7 +65,7 @@
 
 {% block content %}
 
-<div class="seo_content_image">
+<div class="content_image">
 
     {% if page.specific.image and page.specific.show_coverImage %}
     {% image page.specific.image height-500 as 500_photo %}
@@ -86,7 +86,7 @@
     {% endif %}
 </div>
 
-<div class="seo_content" >
+<div class="content" >
     {% if page.specific.show_breadcrumbs %}
     <div class="breadcrumbs">
         {% for ancestor in page.get_ancestors.public|slice:"2:" %}
