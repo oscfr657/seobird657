@@ -9,7 +9,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.search import index
 
-from wagtail.admin.edit_handlers import (FieldPanel, StreamFieldPanel)
+from wagtail.admin.edit_handlers import (FieldPanel, StreamFieldPanel, PageChooserPanel)
 
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -242,6 +242,7 @@ class RSSBirdPageTag(TaggedItemBase):
         on_delete=models.CASCADE,
         related_name='tagged_items')
 
+
 class RSSBirdPage(Page):
     image = models.ForeignKey(
         'wagtailimages.Image',
@@ -251,9 +252,14 @@ class RSSBirdPage(Page):
     )
     language = models.CharField(max_length=5, blank=True, null=True)
 
-    author = models.CharField(max_length=128, blank=True, null=True)
-    author_email = models.CharField(max_length=128, blank=True, null=True)
     author_link = models.URLField(blank=True, null=True)
+
+    index_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
     tags = ClusterTaggableManager(through=RSSBirdPageTag, blank=True)
 
@@ -263,10 +269,9 @@ class RSSBirdPage(Page):
 
     content_panels = Page.content_panels + [
         ImageChooserPanel('image'),
+        PageChooserPanel('index_page'),
         FieldPanel('language'),
         FieldPanel('owner'),
-        FieldPanel('author'),
-        FieldPanel('author_email'),
         FieldPanel('author_link'),
         FieldPanel('feed_copyright'),
     ]

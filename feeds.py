@@ -12,8 +12,9 @@ class RSSFeed(Feed):
         super(RSSFeed, self).__init__()
         self.page = page
         self.title = page.title
-        self.link = page.get_parent().full_url
+        self.link = page.specific.index_page.full_url
         self.feed_url = page.full_url
+        self.language = page.specific.language
 
     def description(self):
         rendered = render_to_string('seobird657/feed_description.html', { 'obj': self.page })
@@ -44,7 +45,7 @@ class RSSFeed(Feed):
             return 'Copyright (c) ' + str(self.page.go_live_at.year) + ', ' + self.page.owner.get_full_name()
 
     def items(self):
-        return self.page.get_parent().get_descendants().live(
+        return self.page.specific.index_page.get_descendants().live(
             ).public().not_in_menu().filter(go_live_at__isnull=False).order_by(
                             '-first_published_at')
 
