@@ -14,7 +14,7 @@ class RSSFeed(Feed):
         self.title = page.title
         self.link = page.specific.index_page.full_url
         self.feed_url = page.full_url
-        self.language = page.specific.language
+        self.language = str(page.specific.language) if page.specific.language else 'en'
 
     def description(self):
         rendered = render_to_string('seobird657/feed_description.html', { 'obj': self.page })
