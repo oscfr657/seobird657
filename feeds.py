@@ -109,6 +109,8 @@ class RSSFeed(Feed):
     def item_copyright(self, item):
         try:
             return item.specific.feed_copyright
+        except AttributeError:
+            return self.page.specific.feed_copyright
         except:
             return 'Copyright (c) ' + str(item.first_published_at.year) + ', ' + item.owner.get_full_name()
 

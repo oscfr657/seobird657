@@ -122,7 +122,11 @@
                     src="{{ 900_photo.url }}" alt="{{ 900_photo.alt }}" loading="lazy" />
             </div>
             <div class="list_page_body">
+                {% if p.specific.intro %}
+                <div class="intro" >
                 <p>{{ p.specific.intro|richtext }}</p>
+                </div>
+                {% endif %}
                 <p>{{ p.specific.body }}</p>
             </div>
         </div>

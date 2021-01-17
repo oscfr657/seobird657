@@ -15,6 +15,9 @@
     max-width: 100%;
     margin: auto;
 }
+.content .intro {
+    margin: 1em auto auto auto;
+}
 .content h1 {
     padding: 3rem 0 0 0;
 }
