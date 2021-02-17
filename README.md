@@ -8,8 +8,8 @@ A small Wagtail app
 ### Tested with ###
 
 ``` Python
-Django == 3.1
-Wagtail == 2.11.2
+Django == 3.1.6
+Wagtail == 2.12
 Wagtailmedia == 0.7.0
 ```
 
