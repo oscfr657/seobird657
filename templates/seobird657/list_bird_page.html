@@ -35,16 +35,32 @@
             "name": "{{ page.owner.get_full_name }}"
         },
 
+        {% if site_settings.logo %}
+        {% with site_settings.logo as settings_logo %}
         "publisher": {
+        "@type": "Organization",
+        {% image settings_logo height-60 as site_logo %}
+        "name": "{{ current_site.site_name|default:'' }}",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ site_logo.url }}"
+            }
+        },
+        {% endwith %}
+        {% else %}
+        {% with settings.seobird657.SeoSettings.logo as settings_logo %}
+            "publisher": {
             "@type": "Organization",
-            {% image settings.seobird657.SeoSettings.logo height-60 as site_logo %}
+            {% image settings_logo height-60 as site_logo %}
             "name": "{{ current_site.site_name|default:'' }}",
             "logo": {
                 "@type": "ImageObject",
                 "url": "{{ site_logo.url }}"
             }
         },
-    
+        {% endwith %}
+        {% endif %}
+
         {% if page.specific.tags.count > 1 %}
         "keywords": "{% for tag in page.specific.tags.all %}{% if forloop.last %}{{ tag }}{% else %}{{ tag }}, {% endif %}{% endfor %}",
         {% elif page.specific.tags.exists %}

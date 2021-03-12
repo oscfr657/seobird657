@@ -37,12 +37,27 @@
 
         "publisher": {
             "@type": "Organization",
-            {% image settings.seobird657.SeoSettings.logo height-60 as site_logo %}
+            {% if site_settings.logo %}
+            {% with site_settings.logo as settings_logo %}
+            {% image settings_logo height-60 as site_logo %}
             "name": "{{ current_site.site_name|default:'' }}",
             "logo": {
                 "@type": "ImageObject",
                 "url": "{{ site_logo.url }}"
             }
+            {% endwith %}
+            {% else %}
+            {% with settings.seobird657.SeoSettings.logo as settings_logo %}
+            {% image settings_logo height-60 as site_logo %}
+            "name": "{{ current_site.site_name|default:'' }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ site_logo.url }}"
+            }
+            {% image settings_logo height-60 as site_logo %}
+            {% endwith %}
+            {% endif %}
+        
         },
     
         {% if page.specific.tags.count > 1 %}
