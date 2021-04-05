@@ -131,7 +131,7 @@
 }
 
 .content .block-code {
-    width: calc(var(--content-width) - 2em);
+    width: calc(100% - 2em);
     max-width: calc(100% - 2em);
     overflow: auto;
     padding: 0 1em;
