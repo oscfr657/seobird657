@@ -145,6 +145,17 @@
                 {% endif %}
                 <p>{{ p.specific.body }}</p>
             </div>
+            <div class="list_page_share">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ p.full_url }}" >
+                    <img src="{% static 'img/seobird657/share/f_logo_RGB-Black_58.png' %}" alt="Facebook “f” Logo Black" loading="lazy">
+                </a>
+                <a href="https://twitter.com/intent/tweet?url={{ p.full_url }}" >
+                    <img src="{% static 'img/seobird657/share/2021_Twitter_logo-black.png' %}" alt="Twitter logo Black" loading="lazy" style="padding: 3px 0 0 0;">
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ p.full_url }}" >
+                    <img src="{% static 'img/seobird657/share/LI-In-Bug-Black.png' %}" alt="LinkedIn logo Black" loading="lazy" style="width: 26px;padding-top: 2px;">
+                </a>
+            </div>
         </div>
     {% endfor %}
 

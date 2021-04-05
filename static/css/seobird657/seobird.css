@@ -44,9 +44,6 @@
 
 .content .related h2 {
     font-size: 20px;
-    font-weight: 400;
-    margin: 0;
-    text-align: left;
 }
 .content .related .related_item {
     display: grid;
@@ -123,7 +120,14 @@
 }
 .content .block-paragraph > img.richtext-image {
     width: 500px;
+    max-width: 100%;
     margin: 1em 0px;
+}
+
+.block-paragraph .richtext-image {
+    max-height: inherit;
+    height: auto;
+    width: auto;
 }
 
 .content .block-code {
@@ -167,6 +171,7 @@
     text-align: left;
 }
 .content .list_page {
+    display: grid;
     border-bottom: solid black 4px;
 }
 .content .list_page > a {
@@ -174,6 +179,23 @@
 }
 .content .list_page .block-code {
     max-width: calc(100% - 2em);
+}
+.content .list_page_share {
+    padding: 0 0 1em 0;
+}
+.content .page_share {
+    display: flex;
+    padding: 0;
+}
+.content .page_share a,
+.content .list_page_share a {
+    float: left;
+    padding: 0 1em 0 0;
+}
+.content .page_share img,
+.content .list_page_share img {
+    width: 24px;
+    height: auto;
 }
 
 .content ul.paginate {
