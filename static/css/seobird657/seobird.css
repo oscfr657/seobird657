@@ -171,7 +171,7 @@
     text-align: left;
 }
 .content .list_page {
-    display: grid;
+    display: block;
     border-bottom: solid black 4px;
 }
 .content .list_page > a {
@@ -181,6 +181,7 @@
     max-width: calc(100% - 2em);
 }
 .content .list_page_share {
+    height: 24px;
     padding: 0 0 1em 0;
 }
 .content .page_share {
