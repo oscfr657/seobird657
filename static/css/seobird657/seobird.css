@@ -172,7 +172,7 @@
 }
 .content .list_page {
     display: block;
-    border-bottom: solid black 4px;
+    border-bottom: solid black 1px;
 }
 .content .list_page > a {
     text-decoration: none;
@@ -180,18 +180,20 @@
 .content .list_page .block-code {
     max-width: calc(100% - 2em);
 }
+.content .page_share,
 .content .list_page_share {
     height: 24px;
-    padding: 0 0 1em 0;
+    padding: 2rem 0 2rem 0;
+    width: 208px;
+    border-top: solid 1px #cecece;
 }
 .content .page_share {
     display: flex;
-    padding: 0;
 }
 .content .page_share a,
 .content .list_page_share a {
     float: left;
-    margin: 0 1em 0 0;
+    margin: 0 2em 0 0;
 }
 .content .page_share img,
 .content .list_page_share img {
