@@ -19,7 +19,7 @@
 
     {% if obj.specific.image %}
     {% image obj.specific.image width-500 as 500_photo %}
-    <img style="margin: 1em 0;" src="{{ 500_photo.url }}" alt="{{ 500_photo.alt }}" loading="lazy" />
+    <img style="margin: 1em 0;" src="{{ 500_photo.url }}" alt="{{ 500_photo.alt }}" width="500" loading="lazy" />
     {% endif %}
 
     {% if obj.search_description %}
