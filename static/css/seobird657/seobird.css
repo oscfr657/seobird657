@@ -182,7 +182,7 @@
 }
 .content .page_share,
 .content .list_page_share {
-    height: 24px;
+    height: 28px;
     padding: 2rem 0 2rem 0;
     width: 208px;
     border-top: solid 1px #cecece;
@@ -198,6 +198,7 @@
 .content .page_share img,
 .content .list_page_share img {
     height: auto;
+    width: 27px;
 }
 
 .content ul.paginate {
