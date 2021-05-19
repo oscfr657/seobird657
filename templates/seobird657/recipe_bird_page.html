@@ -123,21 +123,24 @@
     {{ page.specific.body }}
 
     <div class="page_share">
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.full_url }}" >
-            <img src="{% static 'img/seobird657/share/f_logo_RGB-Black_small.webp' %}" alt="Facebook “f” logo black" width="27" loading="lazy" >
-        </a>
         <a href="https://twitter.com/intent/tweet?url={{ page.full_url }}" >
             <img src="{% static 'img/seobird657/share/2021_Twitter_logo-black_small.webp' %}" alt="Twitter logo black" width="28" loading="lazy" style="width:28px;margin: 4px 0 0 0;" >
         </a>
         <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.full_url }}" >
             <img src="{% static 'img/seobird657/share/LI-In-Bug-Black.webp' %}" alt="LinkedIn logo black" width="30" loading="lazy" style="width:30px;" >
         </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.full_url }}" >
+            <img src="{% static 'img/seobird657/share/f_logo_RGB-Black_small.webp' %}" alt="Facebook “f” logo black" width="27" loading="lazy" >
+        </a>
         <a href="http://www.reddit.com/submit?url={{ page.full_url }}&title={{ page.title }}" style="margin:0;">
             <img src="{% static 'img/seobird657/share/Reddit_Mark_small.webp' %}" alt="Reddit logo black" width="27" loading="lazy" style="margin:0;">
         </a>
-        <!--<a href="mailto:?subject={{ page.title }}&amp;body={{ page.full_url }}" title="Share by Email">
-            <img src="{% static 'img/seobird657/share/Email-icon-black.webp' %}" alt="Email icon black" width="30" loading="lazy" style="width:30px;" >
-        </a>-->
+        <a href="mailto:?subject={{ page.title }}&amp;body={{ page.full_url }}" title="Share by Email">
+            <img src="{% static 'img/seobird657/share/Email-icon-black.webp' %}" alt="Email icon black" width="27" loading="lazy" >
+        </a>
+        <a href="" onclick="window.print(); return false;" >
+            <img src="{% static 'img/seobird657/share/print_logo_black.webp' %}" alt="Print logo black" width="27" loading="lazy" >
+        </a>
     </div>
 
     {% if related %}
