@@ -184,7 +184,7 @@
 .content .list_page_share {
     height: 28px;
     padding: 2rem 0 2rem 0;
-    width: 208px;
+    width: max-content;
     border-top: solid 1px #cecece;
 }
 .content .page_share {
