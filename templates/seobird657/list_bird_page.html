@@ -140,10 +140,10 @@
             <div class="list_page_body">
                 {% if p.specific.intro %}
                 <div class="intro" >
-                <p>{{ p.specific.intro|richtext }}</p>
+                {{ p.specific.intro|richtext }}
                 </div>
                 {% endif %}
-                <p>{{ p.specific.body }}</p>
+                {{ p.specific.body }}
             </div>
             <div class="list_page_share">
                 <a href="https://twitter.com/intent/tweet?url={{ p.full_url }}" title="Share on Twitter">
