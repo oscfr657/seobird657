@@ -205,10 +205,14 @@ class ListBirdPageTag(TaggedItemBase):
 
 class ListBirdPage(Page, BirdMixin):
     tags = ClusterTaggableManager(through=ListBirdPageTag, blank=True)
+    transparent_header = models.BooleanField(default=False)
+
     search_fields = Page.search_fields + BirdMixin.search_fields
     content_panels = Page.content_panels + BirdMixin.content_panels
     promote_panels = Page.promote_panels + [ FieldPanel('tags'), ]
-    settings_panels = Page.settings_panels + BirdMixin.settings_panels
+    settings_panels = Page.settings_panels + [
+        FieldPanel('transparent_header'),
+    ] + BirdMixin.settings_panels
 
     def get_sitemap_urls(self, request=None):
         if self.exclude_from_sitemap:
