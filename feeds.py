@@ -28,7 +28,10 @@ class RSSFeed(Feed):
     
     def author_link(self):
         try:
-            return (self.page.specific.author_link) if self.page.specific.author_link else '/'
+            if self.page.specific.author_link:
+                return self.page.specific.author_link
+            else:
+                return self.page.specific.author_page.full_url if self.page.specific.author_page else '/'
         except AttributeError:
             return '/'
     
@@ -69,7 +72,10 @@ class RSSFeed(Feed):
 
     def item_author_link(self, item):
         try:
-            return (item.specific.author_link) if item.specific.author_link else '/'
+            if item.specific.author_link:
+                return item.specific.author_link
+            else:
+                return item.specific.author_page.full_url if item.specific.author_page else '/'
         except AttributeError:
             return '/'
         

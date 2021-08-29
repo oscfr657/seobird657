@@ -32,7 +32,9 @@
 
         "author": {
             "@type": "Person",
-            "name": "{{ page.owner.get_full_name }}"
+            "name": "{{ page.owner.get_full_name }}"{% if page.author_page %},
+            "url": "{{ page.author_page.full_url }}"
+            {% endif %}
         },
 
         {% if site_settings.logo %}

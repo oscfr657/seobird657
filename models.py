@@ -41,6 +41,13 @@ class SeoSettings(BaseSetting):
 
 class BirdMixin(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
+    #author_link = models.URLField(blank=True, null=True)
+    author_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
     image = models.ForeignKey(
         'wagtailimages.Image',
         blank=True, null=True,
@@ -70,6 +77,7 @@ class BirdMixin(models.Model):
     content_panels = [
         FieldPanel('owner'),
         FieldPanel('author'),
+        PageChooserPanel('author_page'),
         ImageChooserPanel('image'),
         FieldPanel('intro', classname="full"),
     ]
