@@ -131,6 +131,7 @@
             {% image p.specific.image width-720 as 720_photo %}
             {% image p.specific.image width-900 as 900_photo %}
             <div class="list_page_image">
+                <a href="{% pageurl p %}" >
                 <img srcset="{{ 400_photo.url }} 400w,
                             {{ 720_photo.url }} 720w,
                             {{ 900_photo.url }} 900w"
@@ -138,6 +139,7 @@
                             (max-width: 721px) 720px,
                             900px"
                     src="{{ 900_photo.url }}" alt="{{ 900_photo.alt }}" loading="lazy" />
+                </a>
             </div>
             <div class="list_page_body">
                 {% if p.specific.intro %}
