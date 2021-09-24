@@ -11,8 +11,8 @@
         "@type": "Recipe",
         "author": {
             "@type": "Person",
-            "name": "{{ page.owner.get_full_name }}"{% if page.author_page %},
-            "url": "{{ page.author_page.full_url }}"
+            "name": "{{ page.owner.get_full_name }}"{% if page.specific.author_page %},
+            "url": "{{ page.specific.author_page.full_url }}"
             {% endif %}
         },
 

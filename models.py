@@ -115,6 +115,15 @@ class RecipeBlock(blocks.StructBlock):
 
 class RecipeBirdPage(Page, BirdMixin):
     body = StreamField([
+        ('paragraph', blocks.RichTextBlock(
+            required=False, null=True,
+            features=[
+                'h2', 'h3', 'h4',
+                'bold', 'italic',
+                'superscript', 'subscript', 'strikethrough',
+                'ol', 'ul', 'hr',
+                'link', 'document-link',
+                'blockquote', 'embed', 'image'])),
         ('recipe', RecipeBlock(
             required=False, null=True
             )),

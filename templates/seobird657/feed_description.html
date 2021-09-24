@@ -13,5 +13,9 @@
     <div >{{ obj.search_description|richtext }}</div>
     {% endif %}
 
+    {% if obj.specific.body %}
+    <div >{{ obj.specific.body }}</div>
+    {% endif %}
+
 </div>
 
