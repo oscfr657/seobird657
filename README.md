@@ -9,8 +9,8 @@ A small Wagtail app
 
 ``` Python
 django==3.2.6
-wagtail==2.14
-wagtailmedia==0.7.1
+wagtail==2.14.2
+wagtailmedia==0.8.0
 ```
 
 ## Installation ###
@@ -126,13 +126,12 @@ urlpatterns += [
 
 Some commands is good to have in cron to run once every hour.
 
-> crontab -e
-
-> 0 * * * * /path/to/env/bin/python3 /path/to/project/manage.py publish_scheduled_pages
-
-> 0 * * * * /path/to/env/bin/python3 /path/to/project/manage.py search_garbage_collect
-
-> crontab -l
+``` bash
+crontab -e
+0 * * * * /path/to/env/bin/python3 /path/to/project/manage.py publish_scheduled_pages
+0 * * * * /path/to/env/bin/python3 /path/to/project/manage.py search_garbage_collect
+crontab -l
+```
 
 ## For development ##
 
