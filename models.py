@@ -240,15 +240,14 @@ class ListBirdPage(Page, BirdMixin):
 
     def get_context(self, request):
         context = super().get_context(request)
-        all_posts = Page.objects.live().public().not_in_menu().exclude(
-            pk=self.pk).filter(
+        all_posts = self.get_descendants().live().public().filter(
                 Q(content_type__model='articlebirdpage')|
                 Q(content_type__model='recipebirdpage')
                 ).order_by('-go_live_at').distinct()
         paginator = Paginator(all_posts, 5)
-        page = request.GET.get("page", 1)
+        page_number = request.GET.get("page", 1)
         try:
-            posts = paginator.page(page)
+            posts = paginator.get_page(page_number)
         except PageNotAnInteger:
             posts = paginator.page(1)
         except EmptyPage:

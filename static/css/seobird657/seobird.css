@@ -210,21 +210,21 @@
 .content ul.paginate {
     list-style: none;
     margin: 2em auto;
-    text-align: center;
     padding: 0;
 }
 .content ul.paginate li {
     display: inline;
 }
-.content ul.paginate > li.previous > a:nth-child(1) {
+.content ul.paginate > li > a:nth-child(1) {
     text-decoration: none;
     padding: 0 1em;
 }
-.content ul.paginate > li.next > a:nth-child(1) {
-    text-decoration: none;
-    padding: 0 1em;
-    background-color: black;
-    color: white;
+.content ul.paginate > li.first > a:nth-child(1) {
+    text-decoration: underline;
+    padding: 0 1em 0 0;
+}
+.content ul.paginate > li.last > a:nth-child(1) {
+    text-decoration: underline;
 }
 
 @media (max-width: 900px) {
