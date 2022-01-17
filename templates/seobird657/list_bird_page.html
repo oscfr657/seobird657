@@ -147,7 +147,13 @@
                 {{ p.specific.intro|richtext }}
                 </div>
                 {% endif %}
-                {{ p.specific.body }}
+
+                {% for block in p.specific.body %}
+                <div id={{p.slug}}-block-{{ forloop.counter }} class=block-{{ block.block_type }}>
+                    {{ block }}
+                </div>
+                {% endfor %}
+
             </div>
             <div class="list_page_share">
                 <a href="https://twitter.com/intent/tweet?url={{ p.full_url }}" title="Share on Twitter">
