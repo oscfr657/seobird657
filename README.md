@@ -8,9 +8,9 @@ A small Wagtail app
 ### Tested with ###
 
 ``` Python
-django==3.2.6
-wagtail==2.14.2
-wagtailmedia==0.8.0
+django>=3.2.9
+wagtail>=2.15.1
+wagtailmedia>=0.8.0
 ```
 
 ## Installation ###
@@ -159,4 +159,10 @@ if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+```
+
+### Build a new release ###
+
+``` python
+python3 -m build --sdist
 ```
