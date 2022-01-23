@@ -83,9 +83,10 @@
 
 {% block content %}
 
+{% if  page.specific.show_cover %}
 <div class="content_image">
 
-    {% if page.specific.image and page.specific.show_coverImage %}
+    {% if page.specific.image %}
     {% image page.specific.image height-500 as 500_photo %}
     {% image page.specific.image width-1200 as 1200_photo %}
     {% image page.specific.image width-1920 as 1920_photo %}
@@ -103,6 +104,7 @@
     </div>
     {% endif %}
 </div>
+{% endif %}
 
 <div class="content" >
     {% if page.specific.show_breadcrumbs %}
@@ -127,20 +129,22 @@
                 <span class="author">{{ p.owner.get_full_name }}</span>
             </div>
             
-            {% image p.specific.image width-400 as 400_photo %}
-            {% image p.specific.image width-720 as 720_photo %}
-            {% image p.specific.image width-900 as 900_photo %}
-            <div class="list_page_image">
-                <a href="{% pageurl p %}" >
-                <img srcset="{{ 400_photo.url }} 400w,
-                            {{ 720_photo.url }} 720w,
-                            {{ 900_photo.url }} 900w"
-                    sizes="(max-width: 401px) 400px,
-                            (max-width: 721px) 720px,
-                            900px"
-                    src="{{ 900_photo.url }}" alt="{{ 900_photo.alt }}" loading="lazy" />
-                </a>
-            </div>
+            {% if p.specific.image %}
+                {% image p.specific.image width-400 as 400_photo %}
+                {% image p.specific.image width-720 as 720_photo %}
+                {% image p.specific.image width-900 as 900_photo %}
+                <div class="list_page_image">
+                    <a href="{% pageurl p %}" >
+                    <img srcset="{{ 400_photo.url }} 400w,
+                                {{ 720_photo.url }} 720w,
+                                {{ 900_photo.url }} 900w"
+                        sizes="(max-width: 401px) 400px,
+                                (max-width: 721px) 720px,
+                                900px"
+                        src="{{ 900_photo.url }}" alt="{{ 900_photo.alt }}" loading="lazy" />
+                    </a>
+                </div>
+            {% endif %}
             <div class="list_page_body">
                 {% if p.specific.intro %}
                 <div class="intro" >

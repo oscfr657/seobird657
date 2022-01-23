@@ -64,7 +64,7 @@ class BirdMixin(models.Model):
             'link', 'document-link', 'blockquote']
             )
     show_breadcrumbs = models.BooleanField(default=False)
-    show_coverImage = models.BooleanField(default=False)
+    show_cover = models.BooleanField(default=False)
     show_date = models.BooleanField(default=False)
     exclude_from_sitemap = models.BooleanField(default=False)
 
@@ -83,7 +83,7 @@ class BirdMixin(models.Model):
     ]
     settings_panels = [
         FieldPanel('show_breadcrumbs'),
-        FieldPanel('show_coverImage'),
+        FieldPanel('show_cover'),
         FieldPanel('show_date'),
         FieldPanel('exclude_from_sitemap'),
     ]
