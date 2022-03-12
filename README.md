@@ -163,6 +163,11 @@ if settings.DEBUG:
 
 ### Build a new release ###
 
+``` bash
+    pip install black
+    black . --skip-string-normalization
+```
+
 ``` python
 python3 -m build --sdist
 ```

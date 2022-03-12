@@ -9,7 +9,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.search import index
 
-from wagtail.admin.edit_handlers import (FieldPanel, StreamFieldPanel, PageChooserPanel)
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, PageChooserPanel
 
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -20,7 +20,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from taggit.models import TaggedItemBase
 
-from .blocks import (CodeBirdBlock, HTMLBirdBlock, MediaFileBirdBlock)
+from .blocks import CodeBirdBlock, HTMLBirdBlock, MediaFileBirdBlock
 
 from .feeds import RSSFeed
 
@@ -29,10 +29,11 @@ from .feeds import RSSFeed
 class SeoSettings(BaseSetting):
     logo = models.ForeignKey(
         'wagtailimages.Image',
-        blank=True, null=True,
+        blank=True,
+        null=True,
         on_delete=models.SET_NULL,
-        related_name='+'
-        )
+        related_name='+',
+    )
 
     panels = [
         ImageChooserPanel('logo'),
@@ -41,28 +42,41 @@ class SeoSettings(BaseSetting):
 
 class BirdMixin(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
-    #author_link = models.URLField(blank=True, null=True)
+    # author_link = models.URLField(blank=True, null=True)
     author_page = models.ForeignKey(
         'wagtailcore.Page',
-        null=True, blank=True,
+        null=True,
+        blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
     )
     image = models.ForeignKey(
         'wagtailimages.Image',
-        blank=True, null=True,
+        blank=True,
+        null=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
     intro = RichTextField(
-        blank=True, null=True,
+        blank=True,
+        null=True,
         features=[
-            'h2', 'h3', 'h4',
-            'bold', 'italic',
-            'superscript', 'subscript', 'strikethrough',
-            'ol', 'ul', 'hr',
-            'link', 'document-link', 'blockquote']
-            )
+            'h2',
+            "h3",
+            "h4",
+            "bold",
+            "italic",
+            "superscript",
+            "subscript",
+            "strikethrough",
+            "ol",
+            "ul",
+            "hr",
+            "link",
+            "document-link",
+            "blockquote",
+        ],
+    )
     show_breadcrumbs = models.BooleanField(default=False)
     show_cover = models.BooleanField(default=False)
     show_date = models.BooleanField(default=False)
@@ -114,110 +128,170 @@ class RecipeBlock(blocks.StructBlock):
 
 
 class RecipeBirdPage(Page, BirdMixin):
-    body = StreamField([
-        ('paragraph', blocks.RichTextBlock(
-            required=False, null=True,
-            features=[
-                'h2', 'h3', 'h4',
-                'bold', 'italic',
-                'superscript', 'subscript', 'strikethrough',
-                'ol', 'ul', 'hr',
-                'link', 'document-link',
-                'blockquote', 'embed', 'image'])),
-        ('recipe', RecipeBlock(
-            required=False, null=True
-            )),
-    ], blank=True, null=True)
+    body = StreamField(
+        [
+            (
+                'paragraph',
+                blocks.RichTextBlock(
+                    required=False,
+                    null=True,
+                    features=[
+                        "h2",
+                        "h3",
+                        "h4",
+                        "bold",
+                        "italic",
+                        "superscript",
+                        "subscript",
+                        "strikethrough",
+                        "ol",
+                        "ul",
+                        "hr",
+                        "link",
+                        "document-link",
+                        "blockquote",
+                        "embed",
+                        "image",
+                    ],
+                ),
+            ),
+            ('recipe', RecipeBlock(required=False, null=True)),
+        ],
+        blank=True,
+        null=True,
+    )
 
     tags = ClusterTaggableManager(through=RecipeBirdPageTag, blank=True)
 
-    search_fields = Page.search_fields + BirdMixin.search_fields + [
-        index.SearchField('body'),
-    ]
-    content_panels = Page.content_panels + BirdMixin.content_panels  + [
-        StreamFieldPanel('body'),
+    search_fields = (
+        Page.search_fields
+        + BirdMixin.search_fields
+        + [
+            index.SearchField('body'),
         ]
+    )
+    content_panels = (
+        Page.content_panels
+        + BirdMixin.content_panels
+        + [
+            StreamFieldPanel('body'),
+        ]
+    )
     promote_panels = Page.promote_panels + [
         FieldPanel('tags'),
-        ]
+    ]
     settings_panels = Page.settings_panels + BirdMixin.settings_panels
 
     def get_sitemap_urls(self, request=None):
         if self.exclude_from_sitemap:
             return []
         else:
-            return super(RecipeBirdPage, self).get_sitemap_urls(
-                request=request)
+            return super(RecipeBirdPage, self).get_sitemap_urls(request=request)
 
     def get_context(self, request):
         context = super().get_context(request)
-        related = Page.objects.live().public().not_in_menu().exclude(
-            pk=self.pk).filter(
-            content_type__model='recipebirdpage').filter(
-                recipebirdpage__tags__in=self.tags.all()).order_by(
-                    '-go_live_at').distinct()[:3]
+        related = (
+            Page.objects.live()
+            .public()
+            .not_in_menu()
+            .exclude(pk=self.pk)
+            .filter(content_type__model='recipebirdpage')
+            .filter(recipebirdpage__tags__in=self.tags.all())
+            .order_by('-go_live_at')
+            .distinct()[:3]
+        )
         context['related'] = related
         return context
 
 
 class ArticleBirdPageTag(TaggedItemBase):
     content_object = ParentalKey(
-        'ArticleBirdPage',
-        on_delete=models.CASCADE,
-        related_name='tagged_items')
+        'ArticleBirdPage', on_delete=models.CASCADE, related_name='tagged_items'
+    )
 
 
 class ArticleBirdPage(Page, BirdMixin):
-    body = StreamField([
-        ('paragraph', blocks.RichTextBlock(
-            required=False, null=True,
-            features=[
-                'h2', 'h3', 'h4',
-                'bold', 'italic',
-                'superscript', 'subscript', 'strikethrough',
-                'ol', 'ul', 'hr',
-                'link', 'document-link',
-                'blockquote', 'embed', 'image'])),
-        ('media', MediaFileBirdBlock(required=False, null=True)),
-        ('code', CodeBirdBlock(required=False, null=True)),
-        ('html', HTMLBirdBlock(required=False, null=True)),
-    ], blank=True, null=True)
+    body = StreamField(
+        [
+            (
+                'paragraph',
+                blocks.RichTextBlock(
+                    required=False,
+                    null=True,
+                    features=[
+                        "h2",
+                        "h3",
+                        "h4",
+                        "bold",
+                        "italic",
+                        "superscript",
+                        "subscript",
+                        "strikethrough",
+                        "ol",
+                        "ul",
+                        "hr",
+                        "link",
+                        "document-link",
+                        "blockquote",
+                        "embed",
+                        "image",
+                    ],
+                ),
+            ),
+            ('media', MediaFileBirdBlock(required=False, null=True)),
+            ('code', CodeBirdBlock(required=False, null=True)),
+            ('html', HTMLBirdBlock(required=False, null=True)),
+        ],
+        blank=True,
+        null=True,
+    )
     tags = ClusterTaggableManager(through=ArticleBirdPageTag, blank=True)
 
-    search_fields = Page.search_fields + BirdMixin.search_fields + [
-        index.SearchField('body'),
-    ]
-    content_panels = Page.content_panels + BirdMixin.content_panels  + [
-        StreamFieldPanel('body'),
+    search_fields = (
+        Page.search_fields
+        + BirdMixin.search_fields
+        + [
+            index.SearchField('body'),
         ]
+    )
+    content_panels = (
+        Page.content_panels
+        + BirdMixin.content_panels
+        + [
+            StreamFieldPanel('body'),
+        ]
+    )
     promote_panels = Page.promote_panels + [
         FieldPanel('tags'),
-        ]
+    ]
     settings_panels = Page.settings_panels + BirdMixin.settings_panels
 
     def get_sitemap_urls(self, request=None):
         if self.exclude_from_sitemap:
             return []
         else:
-            return super(ArticleBirdPage, self).get_sitemap_urls(
-                request=request)
+            return super(ArticleBirdPage, self).get_sitemap_urls(request=request)
 
     def get_context(self, request):
         context = super().get_context(request)
-        related = Page.objects.live().public().not_in_menu().exclude(
-            pk=self.pk).filter(
-            content_type__model='articlebirdpage').filter(
-                articlebirdpage__tags__in=self.tags.all()).order_by(
-                    '-go_live_at').distinct()[:3]
+        related = (
+            Page.objects.live()
+            .public()
+            .not_in_menu()
+            .exclude(pk=self.pk)
+            .filter(content_type__model='articlebirdpage')
+            .filter(articlebirdpage__tags__in=self.tags.all())
+            .order_by('-go_live_at')
+            .distinct()[:3]
+        )
         context['related'] = related
         return context
 
 
 class ListBirdPageTag(TaggedItemBase):
     content_object = ParentalKey(
-        'ListBirdPage',
-        on_delete=models.CASCADE,
-        related_name='tagged_items')
+        'ListBirdPage', on_delete=models.CASCADE, related_name='tagged_items'
+    )
 
 
 class ListBirdPage(Page, BirdMixin):
@@ -226,26 +300,38 @@ class ListBirdPage(Page, BirdMixin):
 
     search_fields = Page.search_fields + BirdMixin.search_fields
     content_panels = Page.content_panels + BirdMixin.content_panels
-    promote_panels = Page.promote_panels + [ FieldPanel('tags'), ]
-    settings_panels = Page.settings_panels + [
-        FieldPanel('transparent_header'),
-    ] + BirdMixin.settings_panels
+    promote_panels = Page.promote_panels + [
+        FieldPanel('tags'),
+    ]
+    settings_panels = (
+        Page.settings_panels
+        + [
+            FieldPanel('transparent_header'),
+        ]
+        + BirdMixin.settings_panels
+    )
 
     def get_sitemap_urls(self, request=None):
         if self.exclude_from_sitemap:
             return []
         else:
-            return super(ListBirdPage, self).get_sitemap_urls(
-                request=request)
+            return super(ListBirdPage, self).get_sitemap_urls(request=request)
 
     def get_context(self, request):
         context = super().get_context(request)
-        all_posts = self.get_descendants().live().public().filter(
-                Q(content_type__model='articlebirdpage')|
-                Q(content_type__model='recipebirdpage')
-                ).order_by('-go_live_at').distinct()
+        all_posts = (
+            self.get_descendants()
+            .live()
+            .public()
+            .filter(
+                Q(content_type__model='articlebirdpage')
+                | Q(content_type__model='recipebirdpage')
+            )
+            .order_by('-go_live_at')
+            .distinct()
+        )
         paginator = Paginator(all_posts, 5)
-        page_number = request.GET.get("page", 1)
+        page_number = request.GET.get('page', 1)
         try:
             posts = paginator.get_page(page_number)
         except PageNotAnInteger:
@@ -258,17 +344,17 @@ class ListBirdPage(Page, BirdMixin):
 
 class RSSBirdPageTag(TaggedItemBase):
     content_object = ParentalKey(
-        'RSSBirdPage',
-        on_delete=models.CASCADE,
-        related_name='tagged_items')
+        'RSSBirdPage', on_delete=models.CASCADE, related_name='tagged_items'
+    )
 
 
 class RSSBirdPage(Page):
     image = models.ForeignKey(
         'wagtailimages.Image',
-        blank=True, null=True,
+        blank=True,
+        null=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
     )
     language = models.CharField(max_length=5, blank=True, null=True)
 
@@ -276,7 +362,8 @@ class RSSBirdPage(Page):
 
     index_page = models.ForeignKey(
         'wagtailcore.Page',
-        null=True, blank=True,
+        null=True,
+        blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
     )
@@ -297,19 +384,17 @@ class RSSBirdPage(Page):
     ]
     promote_panels = Page.promote_panels + [
         FieldPanel('tags'),
-        ]
-    #settings_panels = Page.settings_panels + [
+    ]
+    # settings_panels = Page.settings_panels + [
     #    FieldPanel('exclude_from_sitemap'),
-    #]
+    # ]
 
     def serve(self, request):
         return RSSFeed(self)(request)
 
     def get_sitemap_urls(self, request=None):
         return []
-        #if self.exclude_from_sitemap:
+        # if self.exclude_from_sitemap:
         #    return []
-        #else:
+        # else:
         #    return super(RSSBirdPage, self).get_sitemap_urls(request=request)
-
-

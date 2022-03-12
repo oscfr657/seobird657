@@ -11,7 +11,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="SEOBird657",
-    version='0.0.1a4',
+    version='0.0.1a5',
     description='A small Wagtail app.',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -29,9 +29,9 @@ setup(
     },
     include_package_data=True,
     install_requires=[
-        'django>=3.2.6',
-        'wagtail>=2.14.2',
-        'wagtailmedia>=0.8.0',
+        'django',
+        'wagtail',
+        'wagtailmedia',
     ],
     license='Hippocratic License Version Number: 2.1 with Commons Clause License Condition v1.0',
     python_requires='>=3.6',
