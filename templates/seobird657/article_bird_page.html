@@ -1,11 +1,7 @@
 {% extends "base.html" %}
-
 {% load static %}
-
 {% load wagtailcore_tags wagtailimages_tags %}
-
 {% wagtail_site as current_site %}
-
 {% block ldjson %}
 <script type="application/ld+json">
     {
@@ -68,11 +64,9 @@
         {% endif %}
 
         "description": "{{ page.specific.search_description|default:''|striptags }}"
-
     }
 </script>
 {% endblock ldjson %}
-
 
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/seobird657/seobird.css' %}" >
@@ -81,7 +75,6 @@
 
 {% block content %}
 <div class="content" >
-
     {% if page.specific.show_breadcrumbs %}
     <div class="breadcrumbs">
         {% for ancestor in page.get_ancestors.public|slice:"2:" %}
@@ -90,11 +83,8 @@
         {{ page.title  }}
     </div>
     {% endif %}
-    
     <article>
-
     <h1 >{{ page.title }}</h1>
-
     <div class="meta" >
     {% if page.go_live_at %}
     <span >{{ page.go_live_at|date:"d M Y" }}</span>
@@ -104,7 +94,6 @@
     <span> / </span>
     <span class="author">{{ page.owner.get_full_name }}</span>
     </div>
-
     {% if page.specific.image and page.specific.show_cover %}
     {% image page.specific.image width-400 as 400_photo %}
     {% image page.specific.image width-720 as 720_photo %}
@@ -117,17 +106,14 @@
                 900px"
         src="{{ 900_photo.url }}" alt="{{ 900_photo.alt }}" loading="lazy" />
     {% endif %}
-    
     {% if page.specific.intro %}
     <div class="intro" >{{ page.specific.intro|richtext }}</div>
     {% endif %}
-    
     {% for block in page.specific.body %}
     <div id=block-{{ forloop.counter }} class=block-{{ block.block_type }}>
         {{ block }}
     </div>
     {% endfor %}
-
     </article>
 
     <div class="page_share">
@@ -187,6 +173,5 @@
     </div>
     </aside>
     {% endif %}
-
 </div>
 {% endblock %}
