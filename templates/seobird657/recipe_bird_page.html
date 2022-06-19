@@ -36,6 +36,7 @@
         "image": ["{{ 1_1_photo.url }}", "{{ 4_3_photo.url }}", "{{ 16_9_photo.url }}"],
 
         {% for block in page.specific.body %}
+            {% if block.block_type == 'recipe' %}
             "recipeIngredient": [
                 {% for ingredient in block.value.ingredients %}
                     {% if ingredient.amount %}
@@ -48,7 +49,6 @@
                     {% endif %}
                 {% endfor %}
             ],
-
             "recipeInstructions": [
                 {% for instruction in block.value.instructions %}
                     { "@type": "HowToStep",
@@ -68,6 +68,7 @@
                     {% endif %}
                 {% endfor %}
                 ],
+            {% endif %}
         {% endfor %}
         
         "name": "{{ page.title }}"

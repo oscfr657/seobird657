@@ -4,6 +4,10 @@
 
 ## commits ##
 
+### 19 Jun 2022 ###
+
+    Maximum one recipe block per page.
+
 ### 11 Apr 2022 ###
 
     CSS improvements. Build 0.0.1a6.

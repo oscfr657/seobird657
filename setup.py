@@ -18,13 +18,14 @@ setup(
     author='Oscar F',
     url='https://github.com/oscfr657/SEOBird657',
     packages=['seobird657'],
-    package_dir={'seobird657':'.'},
-    package_data={'seobird657': [
-        './migrations/*',
-        './static/*/*/*',
-        './static/*/*/*/*',
-        './templates/*',
-        './templates/*/*',
+    package_dir={'seobird657': '.'},
+    package_data={
+        'seobird657': [
+            './migrations/*',
+            './static/*/*/*',
+            './static/*/*/*/*',
+            './templates/*',
+            './templates/*/*',
         ]
     },
     include_package_data=True,

@@ -105,24 +105,30 @@ class BirdMixin(models.Model):
 
 class RecipeBirdPageTag(TaggedItemBase):
     content_object = ParentalKey(
-        'RecipeBirdPage',
-        on_delete=models.CASCADE,
-        related_name='tagged_items')
+        'RecipeBirdPage', on_delete=models.CASCADE, related_name='tagged_items'
+    )
 
 
 class RecipeBlock(blocks.StructBlock):
     ingredients = blocks.ListBlock(
-        blocks.StructBlock([
-            ('ingredient', blocks.CharBlock()),
-            ('amount', blocks.CharBlock(required=False)),
-            ]))
+        blocks.StructBlock(
+            [
+                ('ingredient', blocks.CharBlock()),
+                ('amount', blocks.CharBlock(required=False)),
+            ]
+        )
+    )
     instructions = blocks.ListBlock(
-        blocks.StructBlock([
-            ('name', blocks.CharBlock(required=False)),
-            ('text', blocks.CharBlock()),
-            ('url', blocks.URLBlock(required=False)),
-            ('image', ImageChooserBlock(required=False)),
-            ]))
+        blocks.StructBlock(
+            [
+                ('name', blocks.CharBlock(required=False)),
+                ('text', blocks.CharBlock()),
+                ('url', blocks.URLBlock(required=False)),
+                ('image', ImageChooserBlock(required=False)),
+            ]
+        )
+    )
+
     class Meta:
         template = 'blocks/recipe.html'
 
@@ -159,6 +165,9 @@ class RecipeBirdPage(Page, BirdMixin):
         ],
         blank=True,
         null=True,
+        block_counts={
+            'recipe': {'max_num': 1},
+        },
     )
 
     tags = ClusterTaggableManager(through=RecipeBirdPageTag, blank=True)
