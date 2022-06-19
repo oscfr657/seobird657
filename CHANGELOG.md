@@ -6,7 +6,7 @@
 
 ### 19 Jun 2022 ###
 
-    Maximum one recipe block per page.
+    Maximum one recipe block per page. Build 0.0.1a7.
 
 ### 11 Apr 2022 ###
 

@@ -1,11 +1,10 @@
 Metadata-Version: 2.1
 Name: SEOBird657
-Version: 0.0.1a6
+Version: 0.0.1a7
 Summary: A small Wagtail app.
 Home-page: https://github.com/oscfr657/SEOBird657
 Author: Oscar F
 License: Hippocratic License Version Number: 2.1 with Commons Clause License Condition v1.0
-Platform: UNKNOWN
 Classifier: Development Status :: 3 - Alpha
 Classifier: Environment :: Web Environment
 Classifier: Intended Audience :: Developers
@@ -197,5 +196,3 @@ if settings.DEBUG:
 ``` python
 python3 -m build --sdist
 ```
-
-
