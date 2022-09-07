@@ -4,6 +4,10 @@
 
 ## commits ##
 
+### 8 Sep 2022 ###
+
+    Django 4 and Wagtail 4. Build 0.1.0a0.
+
 ### 19 Jun 2022 ###
 
     Maximum one recipe block per page. Build 0.0.1a7.

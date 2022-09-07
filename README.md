@@ -8,9 +8,9 @@ A small Wagtail app
 ### Tested with ###
 
 ``` Python
-django>=3.2.9
-wagtail>=2.15.1
-wagtailmedia>=0.8.0
+django>=4.1.1
+wagtail>=4.0.1
+wagtailmedia>=0.11.0
 ```
 
 ## Installation ###

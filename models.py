@@ -13,7 +13,7 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, PageChoose
 
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -26,7 +26,7 @@ from .feeds import RSSFeed
 
 
 @register_setting
-class SeoSettings(BaseSetting):
+class SeoSettings(BaseSiteSetting):
     logo = models.ForeignKey(
         'wagtailimages.Image',
         blank=True,
