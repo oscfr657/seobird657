@@ -41,8 +41,6 @@ class SeoSettings(BaseSiteSetting):
 
 
 class BirdMixin(models.Model):
-    author = models.CharField(max_length=255, blank=True, null=True)
-    # author_link = models.URLField(blank=True, null=True)
     author_page = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -90,7 +88,6 @@ class BirdMixin(models.Model):
     ]
     content_panels = [
         FieldPanel('owner'),
-        FieldPanel('author'),
         PageChooserPanel('author_page'),
         ImageChooserPanel('image'),
         FieldPanel('intro', classname="full"),
@@ -199,13 +196,10 @@ class RecipeBirdPage(Page, BirdMixin):
 
     def get_context(self, request):
         context = super().get_context(request)
-        related = (
-            Page.objects.live()
+        related = (self.get_parent().get_descendants().live()
             .public()
             .not_in_menu()
             .exclude(pk=self.pk)
-            .filter(content_type__model='recipebirdpage')
-            .filter(recipebirdpage__tags__in=self.tags.all())
             .order_by('-go_live_at')
             .distinct()[:3]
         )
@@ -283,13 +277,10 @@ class ArticleBirdPage(Page, BirdMixin):
 
     def get_context(self, request):
         context = super().get_context(request)
-        related = (
-            Page.objects.live()
+        related = (self.get_parent().get_descendants().live()
             .public()
             .not_in_menu()
             .exclude(pk=self.pk)
-            .filter(content_type__model='articlebirdpage')
-            .filter(articlebirdpage__tags__in=self.tags.all())
             .order_by('-go_live_at')
             .distinct()[:3]
         )

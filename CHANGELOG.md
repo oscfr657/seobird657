@@ -4,6 +4,10 @@
 
 ## commits ##
 
+### 18 Sep 2022 ###
+
+    Tags not in related pages query. Build 0.1.1a0.
+
 ### 8 Sep 2022 ###
 
     Django 4 and Wagtail 4. Build 0.1.0a0.
