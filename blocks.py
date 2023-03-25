@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from wagtail.core import blocks
+from wagtail import blocks
 
 from wagtailmedia.blocks import AbstractMediaChooserBlock
 

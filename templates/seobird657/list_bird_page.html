@@ -83,7 +83,7 @@
 
 {% block content %}
 
-{% if  page.specific.show_cover %}
+{% if page.specific.show_cover %}
 <div class="content_image">
 
     {% if page.specific.image %}
@@ -118,64 +118,65 @@
 
     {% for p in posts %}
         <div class="list_page">
-            <a href="{% pageurl p %}" ><h1 >{{ p.title }}</h1></a>
-            <div class="meta" >
-                {% if p.go_live_at %}
-                <span >{{ p.go_live_at|date:"d M Y" }}</span>
-                {% else %}
-                <span >{{ p.first_published_at|date:"d M Y" }}</span>
+            <article>
+                <a href="{% pageurl p %}" ><h1 >{{ p.title }}</h1></a>
+                <div class="meta" >
+                    {% if p.go_live_at %}
+                    <span >{{ p.go_live_at|date:"d M Y" }}</span>
+                    {% else %}
+                    <span >{{ p.first_published_at|date:"d M Y" }}</span>
+                    {% endif %}
+                    <span> / </span>
+                    <span class="author">{{ p.owner.get_full_name }}</span>
+                </div>
+                
+                {% if p.specific.image %}
+                    {% image p.specific.image width-400 as 400_photo %}
+                    {% image p.specific.image width-720 as 720_photo %}
+                    {% image p.specific.image width-900 as 900_photo %}
+                    <div class="list_page_image">
+                        <a href="{% pageurl p %}" >
+                        <img srcset="{{ 400_photo.url }} 400w,
+                                    {{ 720_photo.url }} 720w,
+                                    {{ 900_photo.url }} 900w"
+                            sizes="(max-width: 401px) 400px,
+                                    (max-width: 721px) 720px,
+                                    900px"
+                            src="{{ 900_photo.url }}" alt="{{ 900_photo.alt }}" loading="lazy" />
+                        </a>
+                    </div>
                 {% endif %}
-                <span> / </span>
-                <span class="author">{{ p.owner.get_full_name }}</span>
-            </div>
-            
-            {% if p.specific.image %}
-                {% image p.specific.image width-400 as 400_photo %}
-                {% image p.specific.image width-720 as 720_photo %}
-                {% image p.specific.image width-900 as 900_photo %}
-                <div class="list_page_image">
-                    <a href="{% pageurl p %}" >
-                    <img srcset="{{ 400_photo.url }} 400w,
-                                {{ 720_photo.url }} 720w,
-                                {{ 900_photo.url }} 900w"
-                        sizes="(max-width: 401px) 400px,
-                                (max-width: 721px) 720px,
-                                900px"
-                        src="{{ 900_photo.url }}" alt="{{ 900_photo.alt }}" loading="lazy" />
+                <div class="list_page_body">
+                    {% if p.specific.intro %}
+                    <div class="intro" >
+                    {{ p.specific.intro|richtext }}
+                    </div>
+                    {% endif %}
+
+                    {% for block in p.specific.body %}
+                    <div id={{p.slug}}-block-{{ forloop.counter }} class=block-{{ block.block_type }}>
+                        {{ block }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="list_page_share">
+                    <a href="https://twitter.com/intent/tweet?url={{ p.full_url }}" title="Share on Twitter">
+                        <img src="{% static 'img/seobird657/share/2021_Twitter_logo-black_small.webp' %}" alt="Twitter logo black" width="28" loading="lazy" style="width:28px;margin: 4px 0 0 0;" >
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ p.full_url }}" title="Share on Facebook" >
+                        <img src="{% static 'img/seobird657/share/f_logo_RGB-Black_small.webp' %}" alt="Facebook “f” logo black" width="27" loading="lazy" >
+                    </a>
+                    <a href="http://www.reddit.com/submit?url={{ p.full_url }}&title={{ p.title }}" title="Share on Reddit" >
+                        <img src="{% static 'img/seobird657/share/Reddit_Mark_small.webp' %}" alt="Reddit logo black" width="27" loading="lazy" >
+                    </a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ p.full_url }}" title="Share on LinkedIn">
+                        <img src="{% static 'img/seobird657/share/LI-In-Bug-Black.webp' %}" alt="LinkedIn logo black" width="30" loading="lazy" style="width:30px;" >
+                    </a>
+                    <a href="mailto:?subject={{ p.title }}&amp;body={{ p.full_url }}" title="Share by Email" style="margin:0;">
+                        <img src="{% static 'img/seobird657/share/Email-icon-black.webp' %}" alt="Email icon black" width="30" loading="lazy" >
                     </a>
                 </div>
-            {% endif %}
-            <div class="list_page_body">
-                {% if p.specific.intro %}
-                <div class="intro" >
-                {{ p.specific.intro|richtext }}
-                </div>
-                {% endif %}
-
-                {% for block in p.specific.body %}
-                <div id={{p.slug}}-block-{{ forloop.counter }} class=block-{{ block.block_type }}>
-                    {{ block }}
-                </div>
-                {% endfor %}
-
-            </div>
-            <div class="list_page_share">
-                <a href="https://twitter.com/intent/tweet?url={{ p.full_url }}" title="Share on Twitter">
-                    <img src="{% static 'img/seobird657/share/2021_Twitter_logo-black_small.webp' %}" alt="Twitter logo black" width="28" loading="lazy" style="width:28px;margin: 4px 0 0 0;" >
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ p.full_url }}" title="Share on Facebook" >
-                    <img src="{% static 'img/seobird657/share/f_logo_RGB-Black_small.webp' %}" alt="Facebook “f” logo black" width="27" loading="lazy" >
-                </a>
-                <a href="http://www.reddit.com/submit?url={{ p.full_url }}&title={{ p.title }}" title="Share on Reddit" >
-                    <img src="{% static 'img/seobird657/share/Reddit_Mark_small.webp' %}" alt="Reddit logo black" width="27" loading="lazy" >
-                </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ p.full_url }}" title="Share on LinkedIn">
-                    <img src="{% static 'img/seobird657/share/LI-In-Bug-Black.webp' %}" alt="LinkedIn logo black" width="30" loading="lazy" style="width:30px;" >
-                </a>
-                <a href="mailto:?subject={{ p.title }}&amp;body={{ p.full_url }}" title="Share by Email" style="margin:0;">
-                    <img src="{% static 'img/seobird657/share/Email-icon-black.webp' %}" alt="Email icon black" width="30" loading="lazy" >
-                </a>
-            </div>
+            </article>
         </div>
     {% endfor %}
 

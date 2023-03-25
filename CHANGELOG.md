@@ -4,6 +4,10 @@
 
 ## commits ##
 
+### 25 Mars 2023 ###
+
+    Wagtail 5.0 prep. Paragrath block image styling. Build 0.1.2b0.
+
 ### 18 Sep 2022 ###
 
     Tags not in related pages query. Build 0.1.1a0.

@@ -2,16 +2,14 @@ from django.db import models
 from django.db.models import Q
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core import blocks
+from wagtail.models import Page
+from wagtail.fields import RichTextField, StreamField
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.search import index
 
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, PageChooserPanel
-
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel, PageChooserPanel
 
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
@@ -36,7 +34,7 @@ class SeoSettings(BaseSiteSetting):
     )
 
     panels = [
-        ImageChooserPanel('logo'),
+        FieldPanel('logo'),
     ]
 
 
@@ -89,7 +87,7 @@ class BirdMixin(models.Model):
     content_panels = [
         FieldPanel('owner'),
         PageChooserPanel('author_page'),
-        ImageChooserPanel('image'),
+        FieldPanel('image'),
         FieldPanel('intro', classname="full"),
     ]
     settings_panels = [
@@ -180,7 +178,7 @@ class RecipeBirdPage(Page, BirdMixin):
         Page.content_panels
         + BirdMixin.content_panels
         + [
-            StreamFieldPanel('body'),
+            FieldPanel('body'),
         ]
     )
     promote_panels = Page.promote_panels + [
@@ -261,7 +259,7 @@ class ArticleBirdPage(Page, BirdMixin):
         Page.content_panels
         + BirdMixin.content_panels
         + [
-            StreamFieldPanel('body'),
+            FieldPanel('body'),
         ]
     )
     promote_panels = Page.promote_panels + [
@@ -375,7 +373,7 @@ class RSSBirdPage(Page):
     # exclude_from_sitemap = models.BooleanField(default=False)
 
     content_panels = Page.content_panels + [
-        ImageChooserPanel('image'),
+        FieldPanel('image'),
         PageChooserPanel('index_page'),
         FieldPanel('language'),
         FieldPanel('owner'),
