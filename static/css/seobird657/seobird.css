@@ -124,6 +124,12 @@ article {
     padding: revert;
 }
 
+.content .block-paragraph > blockquote,
+.content .block-paragraph > ol,
+.content .block-paragraph > ul {
+    width: auto;
+}
+
 .content .block-paragraph > img.richtext-image {
     display: block;
     width: auto;
