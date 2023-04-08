@@ -208,6 +208,7 @@ article {
     max-width: calc(100% - 2em);
 }
 .content .page_share,
+.grid_page article .grid_page_share,
 .content .list_page_share {
     height: 28px;
     padding: 2rem 0 2rem 0;
@@ -217,14 +218,59 @@ article {
     display: flex;
 }
 .content .page_share a,
+.grid_page_share a,
 .content .list_page_share a {
     float: left;
     margin: 0 2em 0 0;
 }
 .content .page_share img,
+.grid_page article .grid_page_share img,
 .content .list_page_share img {
     height: auto;
     width: 27px;
+}
+.full_grid_page {
+    position: relative;
+    background-color: #f1f1f1;
+}
+.full_grid_page .content {
+    margin: 2rem auto;
+}
+.grid_page {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+    margin: 2rem 0rem;
+}
+.grid_page article {
+    background-color: white;
+    margin: auto;
+    width: 100%;
+    max-width: calc(50vw - 2em);
+}
+.grid_page article h2,
+.grid_page article img {
+    width: 100%;
+}
+.grid_page article .meta,
+.grid_page article .intro {
+    width: calc(100% - 4rem);
+    margin: 0;
+}
+.grid_page article h2 {
+    padding: 1rem 2rem 1rem 2rem;
+    max-width: calc(100% - 4rem);
+    text-align: left;
+    font-size: 1.3rem;
+}
+.grid_page article .meta,
+.grid_page article .grid_page_body {
+    text-align: left;
+    margin: 0 2rem;
+}
+.grid_page article .grid_page_share {
+    padding: 1rem 2rem 2rem;
+    max-width: calc(100% - 2rem);
 }
 
 .content ul.paginate {
@@ -251,16 +297,40 @@ article {
     .content .related .related_item {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .full_grid_page .content {
+        max-width: calc(100vw - 4em);
+    }
+    .grid_page_share a {
+        margin: 0 1em 0 0;
+    }
+    .grid_page article h2 {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 600px) {
-    .content .related .related_item {
+    .related .related_item {
         grid-template-columns: 1fr;
     }
-    .content .block-recipe {
+    .block-recipe {
         grid-template-columns: 1fr;
     }
-    .content .block-recipe .ingredients > ul {
+    .block-recipe .ingredients > ul {
         margin: auto;
+    }
+    .grid_page {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 2rem;
+    }
+    .full_grid_page .content {
+        max-width: calc(100vw - 4em);
+    }
+    .grid_page article {
+        max-width: calc(100vw - 2em);
+      }
+    .grid_page article h2 {
+        font-size: 2rem;
     }
 }

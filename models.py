@@ -313,7 +313,7 @@ class ListBirdPage(Page, BirdMixin):
         if self.exclude_from_sitemap:
             return []
         else:
-            return super(ListBirdPage, self).get_sitemap_urls(request=request)
+            return super().get_sitemap_urls(request=request)
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -329,6 +329,60 @@ class ListBirdPage(Page, BirdMixin):
             .distinct()
         )
         paginator = Paginator(all_posts, 5)
+        page_number = request.GET.get('page', 1)
+        try:
+            posts = paginator.get_page(page_number)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+        context['posts'] = posts
+        return context
+
+
+class GridBirdPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'GridBirdPage', on_delete=models.CASCADE, related_name='tagged_items'
+    )
+
+
+class GridBirdPage(Page, BirdMixin):
+    tags = ClusterTaggableManager(through=GridBirdPageTag, blank=True)
+    transparent_header = models.BooleanField(default=False)
+
+    search_fields = Page.search_fields + BirdMixin.search_fields
+    content_panels = Page.content_panels + BirdMixin.content_panels
+    promote_panels = Page.promote_panels + [
+        FieldPanel('tags'),
+    ]
+    settings_panels = (
+        Page.settings_panels
+        + [
+            FieldPanel('transparent_header'),
+        ]
+        + BirdMixin.settings_panels
+    )
+
+    def get_sitemap_urls(self, request=None):
+        if self.exclude_from_sitemap:
+            return []
+        else:
+            return super().get_sitemap_urls(request=request)
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        all_posts = (
+            self.get_descendants()
+            .live()
+            .public()
+            .filter(
+                Q(content_type__model='articlebirdpage')
+                | Q(content_type__model='recipebirdpage')
+            )
+            .order_by('-go_live_at')
+            .distinct()
+        )
+        paginator = Paginator(all_posts, 10)
         page_number = request.GET.get('page', 1)
         try:
             posts = paginator.get_page(page_number)

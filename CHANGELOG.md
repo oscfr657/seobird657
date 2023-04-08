@@ -4,6 +4,12 @@
 
 ## commits ##
 
+
+### 8 April 2023 ###
+
+    block-paragraph CSS improvements. Added a blog grid page. Build 0.2.0b0.
+
+
 ### 25 Mars 2023 ###
 
     Wagtail 5.0 prep. Paragrath block image styling. Build 0.1.2b0.

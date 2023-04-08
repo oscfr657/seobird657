@@ -29,6 +29,7 @@ setup.py
 ./migrations/0018_auto_20220122_2325.py
 ./migrations/0019_alter_articlebirdpagetag_tag_and_more.py
 ./migrations/0020_remove_articlebirdpage_author_and_more.py
+./migrations/0021_gridbirdpage_gridbirdpagetag_gridbirdpage_tags.py
 ./migrations/__init__.py
 ./static/css/seobird657/seobird.css
 ./static/img/seobird657/share/2021_Twitter_logo-black.png
@@ -48,6 +49,7 @@ setup.py
 ./templates/seobird657/article_bird_page.html
 ./templates/seobird657/feed_description.html
 ./templates/seobird657/feed_item_description.html
+./templates/seobird657/grid_bird_page.html
 ./templates/seobird657/list_bird_page.html
 ./templates/seobird657/recipe_bird_page.html
 SEOBird657.egg-info/PKG-INFO

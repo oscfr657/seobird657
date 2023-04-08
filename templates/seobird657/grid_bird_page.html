@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% wagtail_site as current_site %}
+
+{% block ldjson %}
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ page.full_url }}"
+         },
+
+        "headline": "{{ page.title }}",
+
+        {% image page.specific.image fill-400x400-c100 as 1_1_photo %}
+        {% image page.specific.image fill-720x540-c100 as 4_3_photo %}
+        {% image page.specific.image width-720 as 16_9_photo %}
+        "image": ["{{ 1_1_photo.url }}", "{{ 4_3_photo.url }}", "{{ 16_9_photo.url }}"],
+
+        {% if page.go_live_at %}
+        "datePublished": "{{ page.go_live_at|date:"Y-m-d" }}",
+        {% else %}
+        "datePublished": "{{ page.first_published_at|date:"Y-m-d" }}",
+        {% endif %}
+
+        "author": {
+            "@type": "Person",
+            "name": "{{ page.owner.get_full_name }}"{% if page.author_page %},
+            "url": "{{ page.author_page.full_url }}"
+            {% endif %}
+        },
+
+        {% if site_settings.logo %}
+        {% with site_settings.logo as settings_logo %}
+        "publisher": {
+        "@type": "Organization",
+        {% image settings_logo height-60 as site_logo %}
+        "name": "{{ current_site.site_name|default:'' }}",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ site_logo.url }}"
+            }
+        },
+        {% endwith %}
+        {% else %}
+        {% with settings.seobird657.SeoSettings.logo as settings_logo %}
+            "publisher": {
+            "@type": "Organization",
+            {% image settings_logo height-60 as site_logo %}
+            "name": "{{ current_site.site_name|default:'' }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ site_logo.url }}"
+            }
+        },
+        {% endwith %}
+        {% endif %}
+
+        {% if page.specific.tags.count > 1 %}
+        "keywords": "{% for tag in page.specific.tags.all %}{% if forloop.last %}{{ tag }}{% else %}{{ tag }}, {% endif %}{% endfor %}",
+        {% elif page.specific.tags.exists %}
+        "keywords": "{% for tag in page.specific.tags.all %}{{ tag }}{% endfor %}",
+        {% endif %}
+
+        "description": "{{ page.specific.search_description|default:''|striptags }}"
+
+    }
+</script>
+{% endblock ldjson %}
+
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/seobird657/seobird.css' %}" >
+{% endblock extra_head %}
+
+
+{% block content %}
+
+{% if page.specific.show_cover %}
+<div class="content_image">
+
+    {% if page.specific.image %}
+    {% image page.specific.image height-500 as 500_photo %}
+    {% image page.specific.image width-1200 as 1200_photo %}
+    {% image page.specific.image width-1920 as 1920_photo %}
+    <img srcset="{{ 500_photo.url }} 900w,
+                {{ 1200_photo.url }} 1200w,
+                {{ 1920_photo.url }} 1920w"
+        sizes="(max-width: 901px) 900px,
+                (max-width: 1201px) 1200px,
+                1920px"
+        src="{{ 1920_photo.url }}" alt="{{ 1920_photo.alt }}" loading="lazy" />
+    {% endif %}
+    {% if page.specific.intro %}
+    <div class="intro" >
+        {{ page.specific.intro|richtext }}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="full_grid_page" >
+<div class="content" >
+    {% if page.specific.show_breadcrumbs %}
+    <div class="breadcrumbs">
+        {% for ancestor in page.get_ancestors.public|slice:"2:" %}
+        <a href="{% pageurl ancestor %}">{{ ancestor.title }}</a> /
+        {% endfor %}
+        {{ page.title  }}
+    </div>
+    {% endif %}
+
+    <div class="grid_page">
+    {% for p in posts %}
+            <article>
+                {% if p.specific.image %}
+                    {% image p.specific.image fill-434x244 as 400_photo %}
+                    {% image p.specific.image width-600 as 600_photo %}
+                    <div class="grid_page_image">
+                        <a href="{% pageurl p %}" >
+                        <img srcset="{{ 400_photo.url }} 400px,
+                                    {{ 600_photo.url }} 600px"
+                            sizes="(max-width: 400px) 400px,
+                                    (min-width: 400px and max-width: 600) 600px,
+                                    400px"
+                            src="{{ 400_photo.url }}" alt="{{ 400_photo.alt }}" loading="lazy" />
+                        </a>
+                    </div>
+                {% endif %}
+                <a href="{% pageurl p %}" ><h2 >{{ p.title|truncatechars:30 }}</h2></a>
+                <div class="meta" >
+                    {% if p.go_live_at %}
+                    <span >{{ p.go_live_at|date:"d M Y" }}</span>
+                    {% else %}
+                    <span >{{ p.first_published_at|date:"d M Y" }}</span>
+                    {% endif %}
+                    <span> / </span>
+                    <span class="author">{{ p.owner.get_full_name }}</span>
+                </div>
+                <div class="grid_page_share">
+                    <a href="https://twitter.com/intent/tweet?url={{ p.full_url }}" title="Share on Twitter">
+                        <img src="{% static 'img/seobird657/share/2021_Twitter_logo-black_small.webp' %}" alt="Twitter logo black" width="28" loading="lazy" style="width:28px;margin: 4px 0 0 0;" >
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ p.full_url }}" title="Share on Facebook" >
+                        <img src="{% static 'img/seobird657/share/f_logo_RGB-Black_small.webp' %}" alt="Facebook “f” logo black" width="27" loading="lazy" >
+                    </a>
+                    <a href="http://www.reddit.com/submit?url={{ p.full_url }}&title={{ p.title }}" title="Share on Reddit" >
+                        <img src="{% static 'img/seobird657/share/Reddit_Mark_small.webp' %}" alt="Reddit logo black" width="27" loading="lazy" >
+                    </a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ p.full_url }}" title="Share on LinkedIn">
+                        <img src="{% static 'img/seobird657/share/LI-In-Bug-Black.webp' %}" alt="LinkedIn logo black" width="30" loading="lazy" style="width:30px;" >
+                    </a>
+                    <a href="mailto:?subject={{ p.title }}&amp;body={{ p.full_url }}" title="Share by Email" style="margin:0;">
+                        <img src="{% static 'img/seobird657/share/Email-icon-black.webp' %}" alt="Email icon black" width="30" loading="lazy" >
+                    </a>
+                </div>
+            </article>
+    {% endfor %}
+    </div>
+
+    {% if posts.has_other_pages %}
+    <div>
+        <ul class="paginate">
+            {% if posts.has_previous %}
+            <li class="first">
+                <a href="?page=1">
+                    <span>&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li >
+                <a href="?page={{ posts.previous_page_number }}">
+                    <span>&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            <li >
+                <span>{{ posts.number }}</span>
+            </li>
+            {% if posts.has_next %}
+            <li >
+                <a href="?page={{ posts.next_page_number }}">
+                    <span>&raquo;</span>
+                </a>
+            </li>
+            <li class="last">
+                <a href="?page={{ posts.paginator.num_pages }}">
+                    <span>&raquo;&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+</div>
+{% endblock %}
