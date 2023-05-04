@@ -4,6 +4,9 @@
 
 ## commits ##
 
+### 4 May 2023 ###
+
+    Wagtail 5.0 fixes. Build 0.2.1a0.
 
 ### 8 April 2023 ###
 

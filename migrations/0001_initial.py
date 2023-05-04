@@ -4,8 +4,8 @@ from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.contrib.taggit
 import modelcluster.fields
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 
 
@@ -25,12 +25,12 @@ class Migration(migrations.Migration):
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
                 ('author', models.CharField(blank=True, max_length=255, null=True)),
-                ('intro', wagtail.core.fields.RichTextField(blank=True, null=True)),
+                ('intro', wagtail.fields.RichTextField(blank=True, null=True)),
                 ('show_breadcrumbs', models.BooleanField(default=False)),
                 ('show_coverImage', models.BooleanField(default=False)),
                 ('show_date', models.BooleanField(default=False)),
                 ('exclude_from_sitemap', models.BooleanField(default=False)),
-                ('recipe', wagtail.core.fields.StreamField([('ingredients', wagtail.core.blocks.ListBlock(wagtail.core.blocks.StructBlock([('ingredient', wagtail.core.blocks.CharBlock()), ('amount', wagtail.core.blocks.CharBlock(required=False))]))), ('instructions', wagtail.core.blocks.ListBlock(wagtail.core.blocks.StructBlock([('name', wagtail.core.blocks.CharBlock(required=False)), ('text', wagtail.core.blocks.CharBlock()), ('url', wagtail.core.blocks.URLBlock(required=False)), ('image', wagtail.images.blocks.ImageChooserBlock(required=False))])))])),
+                ('recipe', wagtail.fields.StreamField([('ingredients', wagtail.blocks.ListBlock(wagtail.blocks.StructBlock([('ingredient', wagtail.blocks.CharBlock()), ('amount', wagtail.blocks.CharBlock(required=False))]))), ('instructions', wagtail.blocks.ListBlock(wagtail.blocks.StructBlock([('name', wagtail.blocks.CharBlock(required=False)), ('text', wagtail.blocks.CharBlock()), ('url', wagtail.blocks.URLBlock(required=False)), ('image', wagtail.images.blocks.ImageChooserBlock(required=False))])))])),
                 ('coverImage', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.Image')),
             ],
             options={

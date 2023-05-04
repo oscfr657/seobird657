@@ -163,6 +163,7 @@ class RecipeBirdPage(Page, BirdMixin):
         block_counts={
             'recipe': {'max_num': 1},
         },
+        use_json_field=True,
     )
 
     tags = ClusterTaggableManager(through=RecipeBirdPageTag, blank=True)
@@ -245,6 +246,7 @@ class ArticleBirdPage(Page, BirdMixin):
         ],
         blank=True,
         null=True,
+        use_json_field=True,
     )
     tags = ClusterTaggableManager(through=ArticleBirdPageTag, blank=True)
 

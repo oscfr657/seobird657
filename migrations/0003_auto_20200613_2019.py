@@ -4,8 +4,8 @@ from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.contrib.taggit
 import modelcluster.fields
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtailmedia.blocks
 
 
@@ -24,12 +24,12 @@ class Migration(migrations.Migration):
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
                 ('author', models.CharField(blank=True, max_length=255, null=True)),
-                ('intro', wagtail.core.fields.RichTextField(blank=True, null=True)),
+                ('intro', wagtail.fields.RichTextField(blank=True, null=True)),
                 ('show_breadcrumbs', models.BooleanField(default=False)),
                 ('show_coverImage', models.BooleanField(default=False)),
                 ('show_date', models.BooleanField(default=False)),
                 ('exclude_from_sitemap', models.BooleanField(default=False)),
-                ('article', wagtail.core.fields.StreamField([('paragraph', wagtail.core.blocks.RichTextBlock(features=['h2', 'h3', 'h4', 'bold', 'italic', 'superscript', 'subscript', 'strikethrough', 'ol', 'ul', 'hr', 'link', 'document-link', 'blockquote', 'embed', 'image'], null=True, required=False)), ('media', wagtail.core.blocks.StructBlock([('muted', wagtail.core.blocks.BooleanBlock(default=True, help_text='Muted', required=False)), ('autoplay', wagtail.core.blocks.BooleanBlock(default=False, help_text='Autoplay', required=False)), ('loop', wagtail.core.blocks.BooleanBlock(default=False, help_text='Loop', required=False)), ('controls', wagtail.core.blocks.BooleanBlock(default=True, help_text='Controls', required=False)), ('block_media', wagtailmedia.blocks.AbstractMediaChooserBlock())], null=True, required=False)), ('code', wagtail.core.blocks.StructBlock([('code', wagtail.core.blocks.TextBlock(required=True))], null=True, required=False)), ('html', wagtail.core.blocks.StructBlock([('html', wagtail.core.blocks.RawHTMLBlock())], null=True, required=False))], blank=True, null=True)),
+                ('article', wagtail.fields.StreamField([('paragraph', wagtail.blocks.RichTextBlock(features=['h2', 'h3', 'h4', 'bold', 'italic', 'superscript', 'subscript', 'strikethrough', 'ol', 'ul', 'hr', 'link', 'document-link', 'blockquote', 'embed', 'image'], null=True, required=False)), ('media', wagtail.blocks.StructBlock([('muted', wagtail.blocks.BooleanBlock(default=True, help_text='Muted', required=False)), ('autoplay', wagtail.blocks.BooleanBlock(default=False, help_text='Autoplay', required=False)), ('loop', wagtail.blocks.BooleanBlock(default=False, help_text='Loop', required=False)), ('controls', wagtail.blocks.BooleanBlock(default=True, help_text='Controls', required=False)), ('block_media', wagtailmedia.blocks.AbstractMediaChooserBlock())], null=True, required=False)), ('code', wagtail.blocks.StructBlock([('code', wagtail.blocks.TextBlock(required=True))], null=True, required=False)), ('html', wagtail.blocks.StructBlock([('html', wagtail.blocks.RawHTMLBlock())], null=True, required=False))], blank=True, null=True)),
                 ('cover_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.Image')),
             ],
             options={
