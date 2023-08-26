@@ -4,6 +4,10 @@
 
 ## commits ##
 
+### 26 Aug 2023 ###
+
+    Removed grid page share links. License year update. Build 0.3.0a0.
+
 ### 4 May 2023 ###
 
     Wagtail 5.0 fixes. Build 0.2.1a0.

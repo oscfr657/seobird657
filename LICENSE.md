@@ -16,7 +16,7 @@ Licensor: Oscar Fröberg
 
 ----
 
-## SEOBird Copyright (2022) Oscar Fröberg(“Licensor”) ##
+## SEOBird Copyright (2023) Oscar Fröberg(“Licensor”) ##
 
 ## Hippocratic License Version Number: 2.1 ##
 

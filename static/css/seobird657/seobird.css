@@ -208,7 +208,6 @@ article {
     max-width: calc(100% - 2em);
 }
 .content .page_share,
-.grid_page article .grid_page_share,
 .content .list_page_share {
     height: 28px;
     padding: 2rem 0 2rem 0;
@@ -218,17 +217,16 @@ article {
     display: flex;
 }
 .content .page_share a,
-.grid_page_share a,
 .content .list_page_share a {
     float: left;
     margin: 0 2em 0 0;
 }
 .content .page_share img,
-.grid_page article .grid_page_share img,
 .content .list_page_share img {
     height: auto;
     width: 27px;
 }
+
 .full_grid_page {
     position: relative;
     background-color: #f1f1f1;
@@ -244,13 +242,9 @@ article {
 }
 .grid_page article {
     background-color: white;
-    margin: auto;
+    margin: 0;
     width: 100%;
-    max-width: calc(50vw - 2em);
-}
-.grid_page article h2,
-.grid_page article img {
-    width: 100%;
+    padding: 0;
 }
 .grid_page article .meta,
 .grid_page article .intro {
@@ -258,38 +252,41 @@ article {
     margin: 0;
 }
 .grid_page article h2 {
-    padding: 1rem 2rem 1rem 2rem;
+    margin: 0 0 0.5rem 0;
     max-width: calc(100% - 4rem);
     text-align: left;
     font-size: 1.3rem;
+    line-height: 1.7rem;
 }
-.grid_page article .meta,
-.grid_page article .grid_page_body {
+.grid_page article h2 a {
+    text-decoration: none;
+}
+.grid_page article .meta {
     text-align: left;
-    margin: 0 2rem;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.5);
 }
-.grid_page article .grid_page_share {
-    padding: 1rem 2rem 2rem;
-    max-width: calc(100% - 2rem);
+.grid_page article .grid_page_content {
+    padding: 2rem 2rem;
 }
 
-.content ul.paginate {
+ul.paginate {
     list-style: none;
     margin: 2em auto;
     padding: 0;
 }
-.content ul.paginate li {
+ul.paginate li {
     display: inline;
 }
-.content ul.paginate > li > a:nth-child(1) {
+ul.paginate > li > a:nth-child(1) {
     text-decoration: none;
     padding: 0 1em;
 }
-.content ul.paginate > li.first > a:nth-child(1) {
+ul.paginate > li.first > a:nth-child(1) {
     text-decoration: underline;
     padding: 0 1em 0 0;
 }
-.content ul.paginate > li.last > a:nth-child(1) {
+ul.paginate > li.last > a:nth-child(1) {
     text-decoration: underline;
 }
 
@@ -305,7 +302,7 @@ article {
         margin: 0 1em 0 0;
     }
     .grid_page article h2 {
-        font-size: 1rem;
+        font-size: 1.4rem;
     }
 }
 
