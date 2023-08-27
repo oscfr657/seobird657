@@ -160,16 +160,16 @@
                     {% endfor %}
                 </div>
                 <div class="list_page_share">
-                    <a href="https://twitter.com/intent/tweet?url={{ p.full_url }}" title="Share on Twitter">
-                        <img src="{% static 'img/seobird657/share/2021_Twitter_logo-black_small.webp' %}" alt="Twitter logo black" width="28" loading="lazy" style="width:28px;margin: 4px 0 0 0;" >
+                    <a href="#" data-share-info="{{ p.title }} {{ p.full_url }}" title="Share on Mastodon" onclick="shareToMastodon(this);" target="blank" >
+                        <img src="{% static 'img/seobird657/share/Mastodon-Logotype.svg' %}" alt="Mastodon logo black" width="28" loading="lazy" >
                     </a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ p.full_url }}" title="Share on Facebook" >
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ p.full_url }}" title="Share on Facebook" target="blank" >
                         <img src="{% static 'img/seobird657/share/f_logo_RGB-Black_small.webp' %}" alt="Facebook “f” logo black" width="27" loading="lazy" >
                     </a>
-                    <a href="http://www.reddit.com/submit?url={{ p.full_url }}&title={{ p.title }}" title="Share on Reddit" >
+                    <a href="http://www.reddit.com/submit?url={{ p.full_url }}&title={{ p.title }}" title="Share on Reddit" target="blank" >
                         <img src="{% static 'img/seobird657/share/Reddit_Mark_small.webp' %}" alt="Reddit logo black" width="27" loading="lazy" >
                     </a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ p.full_url }}" title="Share on LinkedIn">
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ p.full_url }}" title="Share on LinkedIn" target="blank" >
                         <img src="{% static 'img/seobird657/share/LI-In-Bug-Black.webp' %}" alt="LinkedIn logo black" width="30" loading="lazy" style="width:30px;" >
                     </a>
                     <a href="mailto:?subject={{ p.title }}&amp;body={{ p.full_url }}" title="Share by Email" style="margin:0;">
@@ -214,4 +214,6 @@
     </div>
     {% endif %}
 </div>
+
+<script src="{% static 'js/seobird657/seobird657.js' %}" async=""></script>
 {% endblock %}

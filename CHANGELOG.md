@@ -4,6 +4,10 @@
 
 ## commits ##
 
+### 27 Aug 2023 ###
+
+    Changed Twitter/X share button to Mastodon. Build 0.4.0a0.
+
 ### 26 Aug 2023 ###
 
     Removed grid page share links. License year update. Build 0.3.0a0.
