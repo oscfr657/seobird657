@@ -4,6 +4,10 @@
 
 ## commits ##
 
+### 5 May 2024 ###
+
+    Template improvements. License year update. Build 0.5.0a0.
+
 ### 27 Aug 2023 ###
 
     Changed Twitter/X share button to Mastodon. Build 0.4.0a0.

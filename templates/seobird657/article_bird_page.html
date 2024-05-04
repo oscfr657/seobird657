@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% load static %}
+
+{% block ldjson %}
 {% load wagtailcore_tags wagtailimages_tags %}
 {% wagtail_site as current_site %}
-{% block ldjson %}
+
 <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -21,9 +22,9 @@
         "image": ["{{ 1_1_photo.url }}", "{{ 4_3_photo.url }}", "{{ 16_9_photo.url }}"],
 
         {% if page.go_live_at %}
-        "datePublished": "{{ page.go_live_at|date:"Y-m-d" }}",
+        "datePublished": "{{ page.go_live_at|date:"c" }}",
         {% else %}
-        "datePublished": "{{ page.first_published_at|date:"Y-m-d" }}",
+        "datePublished": "{{ page.first_published_at|date:"c" }}",
         {% endif %}
 
         "author": {
@@ -69,11 +70,14 @@
 {% endblock ldjson %}
 
 {% block extra_head %}
+{% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/seobird657/seobird.css' %}" >
 {% endblock extra_head %}
 
 
 {% block content %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
 <div class="content" >
     {% if page.specific.show_breadcrumbs %}
     <div class="breadcrumbs">

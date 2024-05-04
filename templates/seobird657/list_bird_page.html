@@ -25,9 +25,9 @@
         "image": ["{{ 1_1_photo.url }}", "{{ 4_3_photo.url }}", "{{ 16_9_photo.url }}"],
 
         {% if page.go_live_at %}
-        "datePublished": "{{ page.go_live_at|date:"Y-m-d" }}",
+        "datePublished": "{{ page.go_live_at|date:"c" }}",
         {% else %}
-        "datePublished": "{{ page.first_published_at|date:"Y-m-d" }}",
+        "datePublished": "{{ page.first_published_at|date:"c" }}",
         {% endif %}
 
         "author": {
