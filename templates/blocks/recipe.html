@@ -23,7 +23,7 @@
             {% endif %}
             {% if instruction.url %}
             <h3 itemprop="name"><a itemprop="url" href="{{ instruction.url }}">{{ instruction.name }}</a></h3>
-            % else %}
+            {% else %}
             <h3 itemprop="name">{{ instruction.name }}</h3>
             {% endif %}
             {% if instruction.image %}
