@@ -4,6 +4,10 @@
 
 ## commits ##
 
+### 29 October 2024 ###
+
+    Build setup bug. Build 0.6.0a1.
+
 ### 28 October 2024 ###
 
     Template improvements. Changed from JSON+LD to Microdata. New build setup. Build 0.6.0a0.
