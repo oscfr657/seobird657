@@ -8,6 +8,7 @@
 
     Build setup bug. Build 0.6.0a1.
     Build setup flat layout. Build 0.6.0a2.
+    Build setup bug fix. Build 0.6.0a3.
 
 ### 28 October 2024 ###
 
