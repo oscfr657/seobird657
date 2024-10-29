@@ -79,13 +79,15 @@ article {
     max-width: 100%;
     margin: auto;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr;
     grid-column-gap: 1em;
 }
-.content .instructions .instruction {
+.block-recipe .instructions .instruction {
     margin: 0.5em auto;
 }
-
+.block-recipe .ingredients > ul {
+    padding: revert;
+}
 
 .content .block-paragraph {
     width: 100%;
@@ -138,11 +140,11 @@ article {
     margin: 1em 0px;
 }
 .content .block-paragraph > img.richtext-image.left {
-    margin: 0rem 1rem 1rem 0rem;
+    margin: 0rem 3rem 0rem 0rem;
     float: left;
 }
 .content .block-paragraph > img.right {
-    margin: 0rem 0rem 1rem 1rem;
+    margin: 0rem 0rem 0rem 1rem;
     float: right;
 }
 .content .block-paragraph > img.richtext-image.full-width {
@@ -290,11 +292,16 @@ ul.paginate > li.last > a:nth-child(1) {
     text-decoration: underline;
 }
 
+@media (min-width: 900px) {
+    .content .block-recipe {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
 @media (max-width: 900px) {
     .content .related .related_item {
         grid-template-columns: repeat(2, 1fr);
     }
-
     .full_grid_page .content {
         max-width: calc(100vw - 4em);
     }
@@ -308,9 +315,6 @@ ul.paginate > li.last > a:nth-child(1) {
 
 @media (max-width: 600px) {
     .related .related_item {
-        grid-template-columns: 1fr;
-    }
-    .block-recipe {
         grid-template-columns: 1fr;
     }
     .block-recipe .ingredients > ul {

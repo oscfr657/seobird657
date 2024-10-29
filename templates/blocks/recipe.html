@@ -1,12 +1,13 @@
+{% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="ingredients">
     <h2>Ingredients:</h2>
     <ul>
     {% for ingredient in value.ingredients %}
             {% if ingredient.amount %}
-            <li >{{ ingredient.amount }} {{ ingredient.ingredient }}</li>
+            <li itemprop="recipeIngredient">{{ ingredient.amount }} {{ ingredient.ingredient }}</li>
             {% else %}
-            <li >{{ ingredient.ingredient }}</li>
+            <li itemprop="recipeIngredient">{{ ingredient.ingredient }}</li>
             {% endif %}
     {% endfor %}
     </ul>
@@ -14,9 +15,31 @@
 
 <div class="instructions">
     <h2>Instructions:</h2>
+    <ol itemprop="recipeInstructions">
     {% for instruction in value.instructions %}
-        <div class="instruction" >
-            <p >{{ instruction.text }}</p>
-        </div>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/HowToStep" class="instruction" >
+            {% if instruction.url %}
+                "{{ instruction.url }}"
+            {% endif %}
+            {% if instruction.url %}
+            <h3 itemprop="name"><a itemprop="url" href="{{ instruction.url }}">{{ instruction.name }}</a></h3>
+            % else %}
+            <h3 itemprop="name">{{ instruction.name }}</h3>
+            {% endif %}
+            {% if instruction.image %}
+                {% image instruction.image width-400 as 400_photo %}
+                {% image instruction.image width-720 as 720_photo %}
+                {% image instruction.image width-900 as 900_photo %}
+                <img itemprop="image" srcset="{{ 400_photo.url }} 400w,
+                            {{ 720_photo.url }} 720w,
+                            {{ 900_photo.url }} 900w"
+                    sizes="(max-width: 400px) 400px,
+                            (max-width: 720px) 720px,
+                            900px"
+                    src="{{ 900_photo.url }}" alt="{{ 900_photo.alt }}" loading="lazy" />
+            {% endif %}
+            <p itemprop="text">{{ instruction.text }}</p>
+        </li>
     {% endfor %}
+    </ol>
 </div>

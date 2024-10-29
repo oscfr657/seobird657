@@ -1,81 +1,5 @@
 {% extends "base.html" %}
 
-{% block ldjson %}
-{% load static %}
-{% load wagtailcore_tags wagtailimages_tags %}
-
-<script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "Recipe",
-        "author": {
-            "@type": "Person",
-            "name": "{{ page.owner.get_full_name }}"{% if page.specific.author_page %},
-            "url": "{{ page.specific.author_page.full_url }}"
-            {% endif %}
-        },
-
-        {% if page.go_live_at %}
-        "datePublished": "{{ page.go_live_at|date:"c" }}",
-        {% else %}
-        "datePublished": "{{ page.first_published_at|date:"c" }}",
-        {% endif %}
-
-        {% if page.specific.tags.count > 1 %}
-        "keywords": "{% for tag in page.specific.tags.all %}{% if forloop.last %}{{ tag }}{% else %}{{ tag }}, {% endif %}{% endfor %}",
-        {% elif page.specific.tags.exists %}
-        "keywords": "{% for tag in page.specific.tags.all %}{{ tag }}{% endfor %}",
-        {% endif %}
-
-        "description": "{{ page.specific.search_description|default:''|striptags }}",
-
-        {% image page.specific.image fill-400x400-c100 as 1_1_photo %}
-        {% image page.specific.image fill-720x540-c100 as 4_3_photo %}
-        {% image page.specific.image width-720 as 16_9_photo %}
-        "image": ["{{ 1_1_photo.url }}", "{{ 4_3_photo.url }}", "{{ 16_9_photo.url }}"],
-
-        {% for block in page.specific.body %}
-            {% if block.block_type == 'recipe' %}
-            "recipeIngredient": [
-                {% for ingredient in block.value.ingredients %}
-                    {% if ingredient.amount %}
-                    "{{ ingredient.amount }} {{ ingredient.ingredient }}"
-                    {% else %}
-                    "{{ ingredient.ingredient }}"
-                    {% endif %}
-                    {% if not forloop.last %}
-                    ,
-                    {% endif %}
-                {% endfor %}
-            ],
-            "recipeInstructions": [
-                {% for instruction in block.value.instructions %}
-                    { "@type": "HowToStep",
-                    "name": "{{ instruction.name }}",
-                    "text": "{{ instruction.text }}"{% if instruction.image or instruction.url %},{% endif %}
-                    {% if instruction.url %}
-                    "url": "{{ instruction.url }}"{% if instruction.image %},{% endif %}
-                    {% endif %}
-                    {% if instruction.image %}
-                    {% image instruction.image original as inst_img %}
-                    "image": "{{ inst_img.url }}"
-                    {% endif %}
-                    {% if not forloop.last %}
-                    },
-                    {% else %}
-                    }
-                    {% endif %}
-                {% endfor %}
-                ],
-            {% endif %}
-        {% endfor %}
-        
-        "name": "{{ page.title }}"
-    }
-</script>
-{% endblock ldjson %}
-
-
 {% block extra_head %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/seobird657/seobird.css' %}" >
@@ -97,24 +21,24 @@
     </div>
     {% endif %}
 
-    <article>
-        <h1 >{{ page.title }}</h1>
+    <article itemscope itemtype="https://schema.org/Recipe">
+        <h1 itemprop="name">{{ page.title }}</h1>
 
         <div class="meta" >
         {% if page.go_live_at %}
-        <span >{{ page.go_live_at|date:"d M Y" }}</span>
+        <span itemprop="datePublished" content="{{ page.go_live_at|date:'c' }}">{{ page.go_live_at|date:"d M Y" }}</span>
         {% else %}
-        <span >{{ page.first_published_at|date:"d M Y" }}</span>
+        <span itemprop="datePublished" content="{{ page.first_published_at|date:'c' }}">{{ page.first_published_at|date:"d M Y" }}</span>
         {% endif %}
         <span> / </span>
-        <span class="author">{{ page.owner.get_full_name }}</span>
+        <span itemprop="author" class="author">{{ page.owner.get_full_name }}</span>
         </div>
         
         {% if page.specific.image and page.specific.show_cover %}
         {% image page.specific.image width-400 as 400_photo %}
         {% image page.specific.image width-720 as 720_photo %}
         {% image page.specific.image width-900 as 900_photo %}
-        <img srcset="{{ 400_photo.url }} 400w,
+        <img itemprop="image" srcset="{{ 400_photo.url }} 400w,
                     {{ 720_photo.url }} 720w,
                     {{ 900_photo.url }} 900w"
             sizes="(max-width: 400px) 400px,
@@ -124,7 +48,7 @@
         {% endif %}
 
         {% if page.specific.intro %}
-        <div class="intro" >{{ page.specific.intro|richtext }}</div>
+        <div itemprop="description" class="intro" >{{ page.specific.intro|richtext }}</div>
         {% endif %}
         
         {% for block in page.specific.body %}

@@ -1,73 +1,5 @@
 {% extends "base.html" %}
 
-{% block ldjson %}
-{% load wagtailcore_tags wagtailimages_tags %}
-{% wagtail_site as current_site %}
-
-<script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "NewsArticle",
-
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "{{ page.full_url }}"
-         },
-
-        "headline": "{{ page.title }}",
-
-        {% image page.specific.image fill-400x400-c100 as 1_1_photo %}
-        {% image page.specific.image fill-720x540-c100 as 4_3_photo %}
-        {% image page.specific.image width-720 as 16_9_photo %}
-        "image": ["{{ 1_1_photo.url }}", "{{ 4_3_photo.url }}", "{{ 16_9_photo.url }}"],
-
-        {% if page.go_live_at %}
-        "datePublished": "{{ page.go_live_at|date:"c" }}",
-        {% else %}
-        "datePublished": "{{ page.first_published_at|date:"c" }}",
-        {% endif %}
-
-        "author": {
-            "@type": "Person",
-            "name": "{{ page.owner.get_full_name }}"{% if page.author_page %},
-            "url": "{{ page.author_page.full_url }}"
-            {% endif %}
-        },
-
-        "publisher": {
-            "@type": "Organization",
-            {% if site_settings.logo %}
-            {% with site_settings.logo as settings_logo %}
-            {% image settings_logo height-60 as site_logo %}
-            "name": "{{ current_site.site_name|default:'' }}",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "{{ site_logo.url }}"
-            }
-            {% endwith %}
-            {% else %}
-            {% with settings.seobird657.SeoSettings.logo as settings_logo %}
-            {% image settings_logo height-60 as site_logo %}
-            "name": "{{ current_site.site_name|default:'' }}",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "{{ site_logo.url }}"
-            }
-            {% endwith %}
-            {% endif %}
-        
-        },
-    
-        {% if page.specific.tags.count > 1 %}
-        "keywords": "{% for tag in page.specific.tags.all %}{% if forloop.last %}{{ tag }}{% else %}{{ tag }}, {% endif %}{% endfor %}",
-        {% elif page.specific.tags.exists %}
-        "keywords": "{% for tag in page.specific.tags.all %}{{ tag }}{% endfor %}",
-        {% endif %}
-
-        "description": "{{ page.specific.search_description|default:''|striptags }}"
-    }
-</script>
-{% endblock ldjson %}
 
 {% block extra_head %}
 {% load static %}
@@ -87,22 +19,22 @@
         {{ page.title  }}
     </div>
     {% endif %}
-    <article>
-        <h1 >{{ page.title }}</h1>
+    <article itemscope itemtype="https://schema.org/NewsArticle">
+        <h1 itemprop="name">{{ page.title }}</h1>
         <div class="meta" >
         {% if page.go_live_at %}
-        <span >{{ page.go_live_at|date:"d M Y" }}</span>
+        <span itemprop="datePublished" content="{{ page.go_live_at|date:'c' }}">{{ page.go_live_at|date:"d M Y" }}</span>
         {% else %}
-        <span >{{ page.first_published_at|date:"d M Y" }}</span>
+        <span itemprop="datePublished" content="{{ page.first_published_at|date:'c' }}">{{ page.first_published_at|date:"d M Y" }}</span>
         {% endif %}
         <span> / </span>
-        <span class="author">{{ page.owner.get_full_name }}</span>
+        <span itemprop="author" class="author">{{ page.owner.get_full_name }}</span>
         </div>
         {% if page.specific.image and page.specific.show_cover %}
         {% image page.specific.image width-400 as 400_photo %}
         {% image page.specific.image width-720 as 720_photo %}
         {% image page.specific.image width-900 as 900_photo %}
-        <img srcset="{{ 400_photo.url }} 400w,
+        <img itemprop="image" srcset="{{ 400_photo.url }} 400w,
                     {{ 720_photo.url }} 720w,
                     {{ 900_photo.url }} 900w"
             sizes="(max-width: 400px) 400px,
@@ -111,7 +43,7 @@
             src="{{ 900_photo.url }}" alt="{{ 900_photo.alt }}" loading="lazy" />
         {% endif %}
         {% if page.specific.intro %}
-        <div class="intro" >{{ page.specific.intro|richtext }}</div>
+        <div itemprop="description" class="intro" >{{ page.specific.intro|richtext }}</div>
         {% endif %}
         {% for block in page.specific.body %}
         <div id=block-{{ forloop.counter }} class=block-{{ block.block_type }}>
