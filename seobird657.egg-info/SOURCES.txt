@@ -8,8 +8,6 @@ blocks.py
 feeds.py
 models.py
 pyproject.toml
-setup.cfg
-setup.py
 tests.py
 views.py
 migrations/0001_initial.py
