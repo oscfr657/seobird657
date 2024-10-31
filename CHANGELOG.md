@@ -7,6 +7,7 @@
 ### 31 October 2024 ###
 
     Build setup with only pyproject toml. Build 0.6.0a6.
+    Build setup bug fix. Build 0.6.0a7.
 
 ### 29 October 2024 ###
 

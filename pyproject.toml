@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "seobird657"
-version = "0.6.0a6"
+version = "0.6.0a7"
 authors = [
   { name="Oscar F" },
 ]
@@ -39,9 +39,15 @@ classifiers = [
 [project.urls]
 repository = "https://github.com/oscfr657/seobird657.git"
 
+[tool.setuptools]
+packages = ["seobird657"]
+package-dir = {'seobird657' = '.'}
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["seobird657"]
-exclude = []
-namespaces = false
+[tool.setuptools.package-data]
+seobird657 = [
+  './migrations/*',
+  './static/*/*/*',
+  './static/*/*/*/*',
+  './templates/*',
+  './templates/*/*',
+  ]
