@@ -1,10 +1,10 @@
 Metadata-Version: 2.1
-Name: SEOBird657
-Version: 0.6.0a2
+Name: seobird657
+Version: 0.6.0a7
 Summary: A small Wagtail app.
-Home-page: https://github.com/oscfr657/SEOBird657
 Author: Oscar F
 License: Hippocratic License Version Number: 2.1 with Commons Clause License Condition v1.0
+Project-URL: repository, https://github.com/oscfr657/seobird657.git
 Classifier: Development Status :: 3 - Alpha
 Classifier: Environment :: Web Environment
 Classifier: Framework :: Django
@@ -20,10 +20,11 @@ Classifier: Programming Language :: Python :: 3.12
 Classifier: Topic :: Internet :: WWW/HTTP
 Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
 Requires-Python: >=3.10
+Description-Content-Type: text/markdown
 License-File: LICENSE.md
-Requires-Dist: Django>=5.0
-Requires-Dist: wagtail>=6.1.1
-Requires-Dist: wagtailmedia>=0.15.1
+Requires-Dist: django>=5.1
+Requires-Dist: wagtail>=6.2.2
+Requires-Dist: wagtailmedia>=0.15.2
 
 
 # SEOBird657 #

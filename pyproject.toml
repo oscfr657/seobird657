@@ -1,3 +1,53 @@
 [bild-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "seobird657"
+version = "0.6.0a7"
+authors = [
+  { name="Oscar F" },
+]
+description = "A small Wagtail app."
+readme = "README.md"
+license = { text = "Hippocratic License Version Number: 2.1 with Commons Clause License Condition v1.0" }
+requires-python = ">= 3.10"
+dependencies = [
+    "django >= 5.1",
+    "wagtail >= 6.2.2",
+    "wagtailmedia >= 0.15.2",
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Wagtail",
+    "Framework :: Wagtail :: 6",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+
+[project.urls]
+repository = "https://github.com/oscfr657/seobird657.git"
+
+[tool.setuptools]
+packages = ["seobird657"]
+package-dir = {'seobird657' = '.'}
+
+[tool.setuptools.package-data]
+seobird657 = [
+  './migrations/*',
+  './static/*/*/*',
+  './static/*/*/*/*',
+  './templates/*',
+  './templates/*/*',
+  ]
