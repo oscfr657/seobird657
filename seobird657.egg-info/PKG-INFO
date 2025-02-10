@@ -1,6 +1,6 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.2
 Name: seobird657
-Version: 0.6.0a7
+Version: 0.7.0a0
 Summary: A small Wagtail app.
 Author: Oscar F
 License: Hippocratic License Version Number: 2.1 with Commons Clause License Condition v1.0
@@ -162,8 +162,6 @@ crontab -l
 ```
 
 ## For development ##
-
-> pip install pylint
 
 To the Django settings.py add
 

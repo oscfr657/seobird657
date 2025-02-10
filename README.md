@@ -135,8 +135,6 @@ crontab -l
 
 ## For development ##
 
-> pip install pylint
-
 To the Django settings.py add
 
 ``` python

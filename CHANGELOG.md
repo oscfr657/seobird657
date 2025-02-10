@@ -4,18 +4,22 @@
 
 ## commits ##
 
+### 10 February 2025 ###
+
+    Added dateModified to templates. Improved version handling. Build 0.7.0a0.
+
 ### 31 October 2024 ###
 
-    Build setup with only pyproject toml. Build 0.6.0a6.
     Build setup bug fix. Build 0.6.0a7.
+    Build setup with only pyproject toml. Build 0.6.0a6.
 
 ### 29 October 2024 ###
 
-    Build setup bug. Build 0.6.0a1.
-    Build setup flat layout. Build 0.6.0a2.
-    Build setup bug fix. Build 0.6.0a3.
-    Build setup name bug fix. Build 0.6.0a4.
     Build setup name bug. Build 0.6.0a5.
+    Build setup name bug fix. Build 0.6.0a4.
+    Build setup bug fix. Build 0.6.0a3.
+    Build setup flat layout. Build 0.6.0a2.
+    Build setup bug. Build 0.6.0a1.
 
 ### 28 October 2024 ###
 

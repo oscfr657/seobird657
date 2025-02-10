@@ -30,6 +30,9 @@
         {% else %}
         <span itemprop="datePublished" content="{{ page.first_published_at|date:'c' }}">{{ page.first_published_at|date:"d M Y" }}</span>
         {% endif %}
+        {% if page.last_published_at %}
+        , <span itemprop="dateModified" content="{{ page.last_published_at|date:'c' }}">{{ page.last_published_at|date:"d M Y" }}</span>
+        {% endif %}
         <span> / </span>
         <span itemprop="author" class="author">{{ page.owner.get_full_name }}</span>
         </div>

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "seobird657"
-version = "0.6.0a7"
+dynamic = ["version"]
 authors = [
   { name="Oscar F" },
 ]
@@ -51,3 +51,6 @@ seobird657 = [
   './templates/*',
   './templates/*/*',
   ]
+
+[tool.setuptools.dynamic]
+version = {file = "VERSION.txt"}
