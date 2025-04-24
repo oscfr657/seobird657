@@ -43,6 +43,9 @@ views.py
 ./migrations/__init__.py
 ./static/css/seobird657/seobird.css
 ./static/img/seobird657/share/Email-icon-black.webp
+./static/img/seobird657/share/InBug-Black.png
+./static/img/seobird657/share/InBug-Black.webp
+./static/img/seobird657/share/InBug-Black.xcf
 ./static/img/seobird657/share/LI-In-Bug-Black.png
 ./static/img/seobird657/share/LI-In-Bug-Black.webp
 ./static/img/seobird657/share/Mastodon-Logotype.svg
@@ -91,6 +94,9 @@ seobird657.egg-info/requires.txt
 seobird657.egg-info/top_level.txt
 static/css/seobird657/seobird.css
 static/img/seobird657/share/Email-icon-black.webp
+static/img/seobird657/share/InBug-Black.png
+static/img/seobird657/share/InBug-Black.webp
+static/img/seobird657/share/InBug-Black.xcf
 static/img/seobird657/share/LI-In-Bug-Black.png
 static/img/seobird657/share/LI-In-Bug-Black.webp
 static/img/seobird657/share/Mastodon-Logotype.svg

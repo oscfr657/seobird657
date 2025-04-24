@@ -6,6 +6,7 @@
 
 ### 24 April 2025 ###
 
+    fix: New LikedIn logo image file. Build 0.8.1b0
     feature: Dark color scheme. MIT License. Build 0.8.0b0
 
 ### 10 February 2025 ###
