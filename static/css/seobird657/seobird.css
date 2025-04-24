@@ -1,3 +1,6 @@
+:root {
+    color-scheme: light dark;
+}
 
 body {
     --article-width: 900px;
@@ -233,6 +236,12 @@ article {
     position: relative;
     background-color: #f1f1f1;
 }
+@media (prefers-color-scheme: dark) {
+    .full_grid_page {
+        background-color: black;
+    }
+}
+
 .full_grid_page .content {
     margin: 2rem auto;
 }
@@ -247,6 +256,11 @@ article {
     margin: 0;
     width: 100%;
     padding: 0;
+}
+@media (prefers-color-scheme: dark) {
+    .grid_page article {
+        background-color: #2b2b2b;
+    }
 }
 .grid_page article .meta,
 .grid_page article .intro {
@@ -268,6 +282,12 @@ article {
     padding: 0;
     color: rgba(0, 0, 0, 0.5);
 }
+@media (prefers-color-scheme: dark) {
+    .grid_page article .meta {
+        color: white;
+    }
+}
+
 .grid_page article .grid_page_content {
     padding: 2rem 2rem;
 }

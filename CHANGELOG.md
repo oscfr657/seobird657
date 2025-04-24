@@ -4,6 +4,10 @@
 
 ## commits ##
 
+### 24 April 2025 ###
+
+    feature: Dark color scheme. MIT License. Build 0.8.0b0
+
 ### 10 February 2025 ###
 
     Added dateModified to templates. Improved version handling. Build 0.7.0a0.
